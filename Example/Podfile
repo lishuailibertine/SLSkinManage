@@ -1,0 +1,8 @@
+use_frameworks!
+
+target 'SLSkinManage_Example' do
+  pod 'SLSkinManage', :path => '../'
+  target 'SLSkinManage_Tests' do
+    inherit! :search_paths
+  end
+end
