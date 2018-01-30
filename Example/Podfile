@@ -2,6 +2,8 @@ use_frameworks!
 
 target 'SLSkinManage_Example' do
   pod 'SLSkinManage', :path => '../'
+  pod 'ZipArchive'
+  pod 'AFNetworking'
   target 'SLSkinManage_Tests' do
     inherit! :search_paths
   end

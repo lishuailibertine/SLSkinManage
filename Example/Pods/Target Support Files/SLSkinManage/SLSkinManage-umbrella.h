@@ -20,6 +20,7 @@
 #import "UITableView+HBSkin.h"
 #import "UITableViewCell+HBSkin.h"
 #import "UIView+HBSkin.h"
+#import "HBSkinDownloadManage.h"
 
 FOUNDATION_EXPORT double SLSkinManageVersionNumber;
 FOUNDATION_EXPORT const unsigned char SLSkinManageVersionString[];

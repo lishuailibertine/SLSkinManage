@@ -18,5 +18,13 @@
   "platforms": {
     "ios": "8.0"
   },
+  "dependencies": {
+    "AFNetworking": [
+
+    ],
+    "ZipArchive": [
+
+    ]
+  },
   "source_files": "SLSkinManage/Classes/**/*"
 }

@@ -12,29 +12,24 @@
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
 #pragma mark -private
-- (void)setSl_backgroundColor:(NSString *)sl_backgroundColor
-{
+- (void)setSl_backgroundColor:(NSString *)sl_backgroundColor{
     objc_setAssociatedObject(self, &backgroundColorKey, sl_backgroundColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (NSString *)sl_backgroundColor
-{
+- (NSString *)sl_backgroundColor{
     return objc_getAssociatedObject(self, &backgroundColorKey);
 }
 #pragma mark -public
-- (void)setSkin_background_color:(NSString *)skin_background_color
-{
+- (void)setSkin_background_color:(NSString *)skin_background_color{
     [self setObserver:self];
     if (skin_background_color) {
         self.sl_backgroundColor =skin_background_color;
         [self updateBackgroundColorWithAlpha:1];
     }
 }
-- (NSString *)skin_background_color
-{
+- (NSString *)skin_background_color{
     return self.sl_backgroundColor;
 }
-- (void)updateStyle
-{
+- (void)updateStyle{
     if (self.sl_backgroundColor) {
         [self updateBackgroundColorWithAlpha:1];
     }
