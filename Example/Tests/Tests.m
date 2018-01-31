@@ -4,9 +4,10 @@
 //
 //  Created by lishuailibertine on 01/30/2018.
 //  Copyright (c) 2018 lishuailibertine. All rights reserved.
-//
+
 
 @import XCTest;
+#import <SLSkinManage/SLSkin.h>
 
 @interface Tests : XCTestCase
 
@@ -28,7 +29,8 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:@"SkinStyle_Light"]).bundlePath configName:nil configType:nil];
+    
 }
 
 @end

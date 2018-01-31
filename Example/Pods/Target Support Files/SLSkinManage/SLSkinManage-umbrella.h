@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "SLSkin.h"
 #import "NSObject+HBSkinNotify.h"
 #import "UIBarButtonItem+HBSkin.h"
 #import "UIButton+HBSkin.h"
@@ -21,6 +22,7 @@
 #import "UITableViewCell+HBSkin.h"
 #import "UIView+HBSkin.h"
 #import "HBSkinDownloadManage.h"
+#import "SLSkinManage.h"
 
 FOUNDATION_EXPORT double SLSkinManageVersionNumber;
 FOUNDATION_EXPORT const unsigned char SLSkinManageVersionString[];

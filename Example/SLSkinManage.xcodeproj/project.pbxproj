@@ -24,6 +24,8 @@
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		A5D51A5FBA74D29C7325F2C5 /* Pods_SLSkinManage_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFEFEEE718B3F36AB8B9696 /* Pods_SLSkinManage_Example.framework */; };
 		B4BAE28091048DFD19E82678 /* Pods_SLSkinManage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA82F1F1E07A4FEEE5DBBDC4 /* Pods_SLSkinManage_Tests.framework */; };
+		E500336F20215A5A0000B297 /* SkinStyle_Light.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */; };
+		E500337020215A5A0000B297 /* SkinStyle_Night.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,12 +61,14 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6CC80DF35FAF0AC929AFF6DB /* SLSkinManage.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = SLSkinManage.podspec; path = ../SLSkinManage.podspec; sourceTree = "<group>"; };
+		6CC80DF35FAF0AC929AFF6DB /* SLSkinManage.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SLSkinManage.podspec; path = ../SLSkinManage.podspec; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		83BB8E61A3F46205401653D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		83BB8E61A3F46205401653D6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C4AC2FFF52218C1C63D9C3EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C4AC2FFF52218C1C63D9C3EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CA82F1F1E07A4FEEE5DBBDC4 /* Pods_SLSkinManage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLSkinManage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SkinStyle_Light.bundle; sourceTree = "<group>"; };
+		E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SkinStyle_Night.Bundle; sourceTree = "<group>"; };
 		F4066D28894132906F1C4646 /* Pods-SLSkinManage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSkinManage_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLSkinManage_Tests/Pods-SLSkinManage_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		FC687173B93214B29062C892 /* Pods-SLSkinManage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSkinManage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLSkinManage_Example/Pods-SLSkinManage_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +136,7 @@
 		6003F593195388D20070C39A /* Example for SLSkinManage */ = {
 			isa = PBXGroup;
 			children = (
+				E500336C20215A5A0000B297 /* SkinSources */,
 				6003F59C195388D20070C39A /* SLAppDelegate.h */,
 				6003F59D195388D20070C39A /* SLAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -194,6 +199,15 @@
 				F4066D28894132906F1C4646 /* Pods-SLSkinManage_Tests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E500336C20215A5A0000B297 /* SkinSources */ = {
+			isa = PBXGroup;
+			children = (
+				E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */,
+				E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */,
+			);
+			path = SkinSources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,8 +293,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E500336F20215A5A0000B297 /* SkinStyle_Light.bundle in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				E500337020215A5A0000B297 /* SkinStyle_Night.Bundle in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);

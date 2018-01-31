@@ -26,5 +26,5 @@
 
     ]
   },
-  "source_files": "SLSkinManage/Classes/**/*"
+  "source_files": "SLSkinManage/sourceClass/**/*"
 }

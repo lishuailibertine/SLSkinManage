@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '8.0'
   s.dependency "AFNetworking"
   s.dependency "ZipArchive"
-  s.source_files = 'SLSkinManage/Classes/**/*'
+  s.source_files = 'SLSkinManage/sourceClass/**/*'
   # s.resource_bundles = {
   #   'SLSkinManage' => ['SLSkinManage/Assets/*.png']
   # }
