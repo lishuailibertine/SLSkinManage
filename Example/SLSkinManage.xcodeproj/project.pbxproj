@@ -25,7 +25,7 @@
 		A5D51A5FBA74D29C7325F2C5 /* Pods_SLSkinManage_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFEFEEE718B3F36AB8B9696 /* Pods_SLSkinManage_Example.framework */; };
 		B4BAE28091048DFD19E82678 /* Pods_SLSkinManage_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA82F1F1E07A4FEEE5DBBDC4 /* Pods_SLSkinManage_Tests.framework */; };
 		E500336F20215A5A0000B297 /* SkinStyle_Light.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */; };
-		E500337020215A5A0000B297 /* SkinStyle_Night.Bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */; };
+		E500337020215A5A0000B297 /* SkinStyle_Night.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500336E20215A5A0000B297 /* SkinStyle_Night.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +68,7 @@
 		C4AC2FFF52218C1C63D9C3EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CA82F1F1E07A4FEEE5DBBDC4 /* Pods_SLSkinManage_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SLSkinManage_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SkinStyle_Light.bundle; sourceTree = "<group>"; };
-		E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SkinStyle_Night.Bundle; sourceTree = "<group>"; };
+		E500336E20215A5A0000B297 /* SkinStyle_Night.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SkinStyle_Night.bundle; sourceTree = "<group>"; };
 		F4066D28894132906F1C4646 /* Pods-SLSkinManage_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSkinManage_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLSkinManage_Tests/Pods-SLSkinManage_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		FC687173B93214B29062C892 /* Pods-SLSkinManage_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLSkinManage_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLSkinManage_Example/Pods-SLSkinManage_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				E500336D20215A5A0000B297 /* SkinStyle_Light.bundle */,
-				E500336E20215A5A0000B297 /* SkinStyle_Night.Bundle */,
+				E500336E20215A5A0000B297 /* SkinStyle_Night.bundle */,
 			);
 			path = SkinSources;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 				E500336F20215A5A0000B297 /* SkinStyle_Light.bundle in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
-				E500337020215A5A0000B297 /* SkinStyle_Night.Bundle in Resources */,
+				E500337020215A5A0000B297 /* SkinStyle_Night.bundle in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);

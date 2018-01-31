@@ -12,10 +12,9 @@ extern NSString * const kSkinConfigColorForKey;
 //皮肤配置文件中字体map对应的key值(fonts:默认)
 extern NSString * const kSkinConfigFontForKey;
 //皮肤配置文件中其他样式map对应的key值(others:默认)
-extern NSString * const kSkinConfigFontForKey;
+extern NSString * const kSkinConfigOtherForKey;
 @interface SLSkinManage : NSObject
-//当前的资源包ID
-@property (nonatomic, copy,readonly) NSString * currentBundleID;
+@property (nonatomic, strong,getter=getCurrentConfig,readonly) NSDictionary *currentConfigMap;
 //皮肤管理实例
 + (instancetype)sharedSkinManage;
 /**

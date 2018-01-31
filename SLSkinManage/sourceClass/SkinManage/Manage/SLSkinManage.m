@@ -6,14 +6,27 @@
 //
 
 #import "SLSkinManage.h"
+#import "NSObject+HBSkinNotify.h"
+//皮肤配置文件中颜色map对应的key值(colors:默认)
+NSString * const kSkinConfigColorForKey =@"colors";
+//皮肤配置文件中字体map对应的key值(fonts:默认)
+NSString * const kSkinConfigFontForKey =@"fonts";
+//皮肤配置文件中其他样式map对应的key值(others:默认)
+NSString * const kSkinConfigOtherForKey =@"others";
+//*************************private************************************
+//默认的资源包ID
+NSString *const HBDefaultSourcesID =@"SkinStyle_Light";
 //默认的样式配置文件名称
 NSString *const HBDefaultConfigName =@"skin";
 //默认的样式配置文件类型
 NSString *const HBDefaultConfigType =@"json";
+
+//********NSUserDefaults************
 //存储样式配置对应的key
-NSString *const HBSkinType = @"HBSkinType";
+NSString *const HBSkinConfigMapKey = @"HBSkinConfigMapKey";
+//存储样式配置ID对应的key
+NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
 @interface SLSkinManage()
-@property (nonatomic, copy,readwrite) NSString * currentBundleID;
 @property (nonatomic, strong) NSMutableDictionary *sourcesMap;
 @end
 
@@ -23,6 +36,10 @@ NSString *const HBSkinType = @"HBSkinType";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken,^(void) {
         _skinManage = [[self alloc] init];
+        [_skinManage installSkinByBundlePath:([SLSkinManage getBundleWithBundleName:HBDefaultSourcesID]).bundlePath installResult:^(NSError *error) {
+            NSAssert(error==nil, @"install default fail:%@",error.userInfo);
+            [_skinManage saveCurrentSkinBundleID:[NSString stringWithFormat:@"%@.bundle",HBDefaultSourcesID]];
+        }];
     });
     return _skinManage;
 }
@@ -32,6 +49,9 @@ NSString *const HBSkinType = @"HBSkinType";
         _sourcesMap =[NSMutableDictionary dictionary];
     }
     return _sourcesMap;
+}
+- (NSDictionary *)getCurrentConfig{
+    return [[SLSkinManage getSourcesConfigForKey:HBSkinConfigMapKey] objectForKey:[self getCurrentSkinBundleID]];
 }
 #pragma mark --public
 - (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(void(^)(NSError *error))installResult{
@@ -66,6 +86,9 @@ NSString *const HBSkinType = @"HBSkinType";
                 return;
             }else{
                 [this saveConfigWithBundleID:bundlePath.lastPathComponent skinConfig:dataDic];
+                if (installResult) {
+                    installResult(nil);
+                }
             }
         }];
     }
@@ -75,17 +98,27 @@ NSString *const HBSkinType = @"HBSkinType";
 }
 //安装完，需手动根据bundleID进行皮肤更新
 - (void)notifyUpdateByBundleID:(NSString *)bundleID{
-    
+    if (bundleID==nil||bundleID.length==0) {
+        NSAssert((bundleID||bundleID.length>=0), @"bundleID is error");
+        return;
+    }
+    [self saveCurrentSkinBundleID:[NSString stringWithFormat:@"%@.bundle",bundleID]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
 }
 #pragma mark --private
+#pragma mark --ConfigDic
 - (void)saveConfigWithBundleID:(NSString *)bundleID skinConfig:(NSDictionary *)skinConfig{
-    NSDictionary *configMap =[self getConfig];
+    NSDictionary *configMap =[SLSkinManage getSourcesConfigForKey:HBSkinConfigMapKey];
     [self.sourcesMap addEntriesFromDictionary:configMap];
     [self.sourcesMap setValue:skinConfig forKey:bundleID];
-    [SLSkinManage saveSourcesConfig:self.sourcesMap forKey:HBSkinType];
+    [SLSkinManage saveSourcesConfig:self.sourcesMap forKey:HBSkinConfigMapKey];
 }
-- (id)getConfig{
-    return [SLSkinManage getSourcesConfigForKey:HBSkinType];
+#pragma mark --SkinBundleID
+- (void)saveCurrentSkinBundleID:(NSString *)bundleID{
+    [SLSkinManage saveSourcesConfig:bundleID forKey:HBSkinBundleIDKey];
+}
+- (NSString *)getCurrentSkinBundleID{
+    return [SLSkinManage getSourcesConfigForKey:HBSkinBundleIDKey];
 }
 @end
 

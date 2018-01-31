@@ -29,9 +29,11 @@
 
 - (void)testExample
 {
-    [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:@"SkinStyle_Light"]).bundlePath configName:nil configType:nil installResult:^(NSError *error) {
-        
+    [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:@"SkinStyle_Night"]).bundlePath configName:nil configType:nil installResult:^(NSError *error) {
+        NSLog(@"%@",[SLSkinManage sharedSkinManage].currentConfigMap);
     }];
+    
+    
     
 }
 
