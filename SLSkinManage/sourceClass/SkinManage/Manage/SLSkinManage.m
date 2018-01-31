@@ -6,8 +6,11 @@
 //
 
 #import "SLSkinManage.h"
+//默认的样式配置文件名称
 NSString *const HBDefaultConfigName =@"skin";
+//默认的样式配置文件类型
 NSString *const HBDefaultConfigType =@"json";
+//存储样式配置对应的key
 NSString *const HBSkinType = @"HBSkinType";
 @interface SLSkinManage()
 @property (nonatomic, copy,readwrite) NSString * currentBundleID;
@@ -31,8 +34,8 @@ NSString *const HBSkinType = @"HBSkinType";
     return _sourcesMap;
 }
 #pragma mark --public
-- (void)installSkinByBundlePath:(NSString *)bundlePath{
-    [self installSkinByBundlePath:bundlePath configName:nil configType:nil installResult:nil];
+- (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(void(^)(NSError *error))installResult{
+    [self installSkinByBundlePath:bundlePath configName:nil configType:nil installResult:installResult];
 }
 - (void)installSkinByBundlePath:(NSString *)bundlePath
                      configName:(NSString *)configName
