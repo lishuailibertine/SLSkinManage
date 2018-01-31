@@ -8,6 +8,7 @@
 #import "SLSkinManage.h"
 NSString *const HBDefaultConfigName =@"skin";
 NSString *const HBDefaultConfigType =@"json";
+NSString *const HBSkinType = @"HBSkinType";
 @interface SLSkinManage()
 @property (nonatomic, copy,readwrite) NSString * currentBundleID;
 @property (nonatomic, strong) NSMutableDictionary *sourcesMap;
@@ -38,7 +39,9 @@ NSString *const HBDefaultConfigType =@"json";
                      configType:(NSString *)configType
                   installResult:(void(^)(NSError *error))installResult{
     if (bundlePath==nil||bundlePath.length==0) {
-        NSAssert(!bundlePath,@"bundlePath is nil");
+        if (installResult) {
+            installResult([NSError SkinErrorWithDomain:HBSKINMANAGEERRORDOMAIN code:HBSkinManageError_BundlePathNotFound userInfo:nil]);
+        }
         return;
     }
     if (configName==nil||configName.length==0) {
@@ -48,11 +51,20 @@ NSString *const HBDefaultConfigType =@"json";
         configType =HBDefaultConfigType;
     }
     @try{
+        __weak typeof(self) this =self;
         NSString * configPath =[NSString stringWithFormat:@"%@/%@.%@",bundlePath,configName,configType];
-        NSData *fileData = [NSData dataWithContentsOfFile:configPath];
-        NSError *error = nil;
-        NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingAllowFragments error:&error];
-        NSLog(@"%@",jsonDic);
+        [SLSkinManage filePathToDic:configPath result:^(NSError *error, NSDictionary *dataDic) {
+            if (error) {
+                if (installResult) {
+                    installResult([NSError SkinErrorWithDomain:HBSKINMANAGEERRORDOMAIN code:HBSkinManageError_JsonParse userInfo:nil]);
+                }else{
+                    NSAssert(error==nil, @"%@",error.userInfo);
+                }
+                return;
+            }else{
+                [this saveConfigWithBundleID:bundlePath.lastPathComponent skinConfig:dataDic];
+            }
+        }];
     }
     @catch(NSException *exception){
         NSAssert(exception==nil, @"%@",exception.reason);
@@ -63,9 +75,16 @@ NSString *const HBDefaultConfigType =@"json";
     
 }
 #pragma mark --private
-
+- (void)saveConfigWithBundleID:(NSString *)bundleID skinConfig:(NSDictionary *)skinConfig{
+    NSDictionary *configMap =[self getConfig];
+    [self.sourcesMap addEntriesFromDictionary:configMap];
+    [self.sourcesMap setValue:skinConfig forKey:bundleID];
+    [SLSkinManage saveSourcesConfig:self.sourcesMap forKey:HBSkinType];
+}
+- (id)getConfig{
+    return [SLSkinManage getSourcesConfigForKey:HBSkinType];
+}
 @end
-
 
 @implementation SLSkinManage (SLSkinSourceManage)
 + (NSBundle *)getBundleWithBundleName:(NSString *)bundleName {
@@ -74,5 +93,27 @@ NSString *const HBDefaultConfigType =@"json";
         bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:bundleName withExtension:@"bundle"]];
     }
     return bundle;
+}
++ (void)saveSourcesConfig:(id)object forKey:(NSString *)key{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:object=object?object:[NSNull null] forKey:key];
+    [defaults synchronize];
+}
++ (id)getSourcesConfigForKey:(NSString *)key{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    return  [defaults objectForKey:key];
+}
++ (void)filePathToDic:(NSString *)filePath result:(void(^)(NSError *error,NSDictionary *dataDic))result{
+    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+    NSError *error = nil;
+    NSDictionary *jsonDic;
+    if (fileData) {
+        jsonDic = [NSJSONSerialization JSONObjectWithData:fileData options:NSJSONReadingAllowFragments error:&error];
+    }
+    if (error) {
+        result(error,nil);
+    }else{
+        result(nil,jsonDic);
+    }
 }
 @end

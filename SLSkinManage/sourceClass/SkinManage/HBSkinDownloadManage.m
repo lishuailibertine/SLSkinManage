@@ -65,11 +65,11 @@ static NSURLSessionConfiguration *_sessionConfiguration =nil;
         params =[[HBSkinDownloadParams alloc] init];
     }
     if(!params.destinationPath){
-        resultBlock([NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_TargetPathNotFound userInfo:nil]);
+        resultBlock([NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_TargetPathNotFound userInfo:nil]);
         return;
     }
     if(!params.url){
-        resultBlock([NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_UrlNotFound userInfo:nil]);
+        resultBlock([NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_UrlNotFound userInfo:nil]);
         return;
     }
     NSURL *URL = [NSURL URLWithString:params.url];
@@ -78,12 +78,12 @@ static NSURLSessionConfiguration *_sessionConfiguration =nil;
         if([HBSkinDownloadManage createTargetPath:params.destinationPath params:params]){
             return [[self directory:params] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",params.destinationPath,[response suggestedFilename]]];
         }else{
-            resultBlock([NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_TargetPathCreateFail userInfo:nil]);
+            resultBlock([NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_TargetPathCreateFail userInfo:nil]);
             return [self directory:params];
         }
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         if(error){
-            resultBlock([NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_AppOther userInfo:error.userInfo]);
+            resultBlock([NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_AppOther userInfo:error.userInfo]);
         }else{
             NSError *error = [self unzipWithZipPath:filePath.path isUnZipedPath:[self getTargetAbsolutePath:params.destinationPath params:params] removeZip:params.isRemove];
             if(error){
@@ -109,11 +109,11 @@ static NSURLSessionConfiguration *_sessionConfiguration =nil;
             return nil;
         }else{
             [zipArchive UnzipCloseFile];
-            return [NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_UnZipFail userInfo:nil];
+            return [NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_UnZipFail userInfo:nil];
         }
     }else{
         [zipArchive UnzipCloseFile];
-        return [NSError errorWithDomain:NSStringFromClass([self class]) code:HBSkinDownloadError_UnZipOpenFail userInfo:nil];
+        return [NSError SkinErrorWithDomain:HBSKINDOWNLOADMANAGEERRORDOMAIN code:HBSkinDownloadError_UnZipOpenFail userInfo:nil];
     }
     return nil;
 }

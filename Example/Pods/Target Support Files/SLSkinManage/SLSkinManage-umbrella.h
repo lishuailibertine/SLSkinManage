@@ -23,6 +23,7 @@
 #import "UIView+HBSkin.h"
 #import "HBSkinDownloadManage.h"
 #import "SLSkinManage.h"
+#import "NSError+SkinManage.h"
 
 FOUNDATION_EXPORT double SLSkinManageVersionNumber;
 FOUNDATION_EXPORT const unsigned char SLSkinManageVersionString[];
