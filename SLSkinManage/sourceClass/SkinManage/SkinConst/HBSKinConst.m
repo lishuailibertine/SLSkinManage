@@ -4,15 +4,15 @@
 //
 //  Created by Touker on 2018/2/1.
 //
-
-NSString * const kSkinConfigColorForKey =@"colors";
-NSString * const kSkinConfigFontForKey =@"fonts";
-NSString * const kSkinConfigImageForKey =@"images";
-NSString * const kSkinConfigOtherForKey =@"others";
+#import "HBSkinDownloadManage.h"
+NSString *const kSkinConfigColorForKey =@"colors";
+NSString *const kSkinConfigFontForKey =@"fonts";
+NSString *const kSkinConfigImageForKey =@"images";
+NSString *const kSkinConfigOtherForKey =@"others";
 //图片的子路径
-NSString * const HBImageSubpathKey = @"images";
+NSString *const HBImageSubpathKey = @"images";
 //图片的类型
-NSString * const HBImageTypeKey = @"png";
+NSString *const HBImageTypeKey = @"png";
 //*************************private************************************
 //默认的资源包ID
 NSString *const HBDefaultSourcesID =@"SkinStyle_Light";
@@ -25,3 +25,9 @@ NSString *const HBDefaultConfigType =@"json";
 NSString *const HBSkinConfigMapKey = @"HBSkinConfigMapKey";
 //存储样式配置ID对应的key
 NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
+
+NSString *HBSkinDownloadPath(void){
+    
+//    [HBSkinDownloadManage ]
+    return nil;
+}
