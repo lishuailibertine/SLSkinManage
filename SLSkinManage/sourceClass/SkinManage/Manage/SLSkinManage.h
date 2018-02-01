@@ -11,6 +11,8 @@
 extern NSString * const kSkinConfigColorForKey;
 //皮肤配置文件中字体map对应的key值(fonts:默认)
 extern NSString * const kSkinConfigFontForKey;
+//皮肤配置文件中字体map对应的key值(images:默认)
+extern NSString * const kSkinConfigImageForKey;
 //皮肤配置文件中其他样式map对应的key值(others:默认)
 extern NSString * const kSkinConfigOtherForKey;
 /**
@@ -42,7 +44,7 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
  * bundleID:皮肤资源ID
  */
 - (void)notifyUpdateByBundleID:(NSString *)bundleID;
-#pragma mark --register
+#pragma mark --register(根据业务场景使用)
 /**注册主题更新callback
  * 把控制器的指针地址作为key(请谨慎使用，容易覆盖)
  */
@@ -57,6 +59,14 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
  * 根据bundleName获取bundle
  */
 + (NSBundle *)getBundleWithBundleName:(NSString *)bundleName;
+/**
+ * 获取文件的路径
+ * bundle:图片所属的bundle(可以根据:bundleForClass获取)
+ * imageName:图片的名称
+ * imageType:文件的类型
+ * inDirectory:文件在bundle的子路径
+ */
++ (NSString *)getImagePathWithBundle:(NSBundle *)bundle imageName:(NSString *)imageName imageType:(NSString *)fileType inDirectory:(NSString *)subPath;
 /**
  * 根据文件配置地址返回一个map
  */

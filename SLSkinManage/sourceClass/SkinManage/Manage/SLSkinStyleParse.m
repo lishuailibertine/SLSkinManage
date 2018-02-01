@@ -50,7 +50,12 @@
 }
 
 + (UIImage *)imageForKey:(NSString *)key{
-    return nil;
+    UIImage *image;
+    if (key) {
+        NSString * imagePath =[[SLSkinManage sharedSkinManage].currentConfigMap[kSkinConfigImageForKey] valueForKey:key];
+        image =[UIImage imageWithContentsOfFile:imagePath];
+    }
+    return image;
 }
 
 + (id)otherForType:(NSString *)type{

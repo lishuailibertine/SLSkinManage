@@ -6,5 +6,8 @@
     "fonts":{
         "f1":"8",
         "f2":"9"
+    },
+    "images":{
+        "pic1":"navBar"
     }
 }

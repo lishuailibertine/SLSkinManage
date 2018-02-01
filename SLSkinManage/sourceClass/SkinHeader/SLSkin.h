@@ -9,6 +9,7 @@
 #define SLSkin_h
 
 #import "SLSkinManage.h"
+#import "SLSkinStyleParse.h"
 #import "NSError+SkinManage.h"
-
+#import "UIView+HBSkin.h"
 #endif /* SLSkin_h */

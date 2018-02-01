@@ -7,11 +7,9 @@
 
 #import "SLSkinManage.h"
 #import "NSObject+HBSkinNotify.h"
-//皮肤配置文件中颜色map对应的key值(colors:默认)
 NSString * const kSkinConfigColorForKey =@"colors";
-//皮肤配置文件中字体map对应的key值(fonts:默认)
 NSString * const kSkinConfigFontForKey =@"fonts";
-//皮肤配置文件中其他样式map对应的key值(others:默认)
+NSString * const kSkinConfigImageForKey =@"images";
 NSString * const kSkinConfigOtherForKey =@"others";
 //*************************private************************************
 //默认的资源包ID
@@ -149,6 +147,17 @@ NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
         bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:bundleName withExtension:@"bundle"]];
     }
     return bundle;
+}
++ (NSString *)getImagePathWithBundle:(NSBundle *)bundle imageName:(NSString *)imageName imageType:(NSString *)fileType inDirectory:(NSString *)subPath{
+    if (bundle==nil) {
+        bundle =[NSBundle mainBundle];
+    }
+    if (fileType==nil||fileType.length<=0) {
+        fileType =@"png";
+    }
+    NSInteger scale = [[UIScreen mainScreen] scale];
+    NSString *name = [NSString stringWithFormat:@"%@@%zdx",imageName,scale];
+    return [bundle pathForResource:name ofType:fileType inDirectory:subPath];
 }
 + (void)saveSourcesConfig:(id)object forKey:(NSString *)key{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
