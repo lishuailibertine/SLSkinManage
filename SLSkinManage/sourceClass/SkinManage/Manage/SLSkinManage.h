@@ -13,6 +13,11 @@ extern NSString * const kSkinConfigColorForKey;
 extern NSString * const kSkinConfigFontForKey;
 //皮肤配置文件中其他样式map对应的key值(others:默认)
 extern NSString * const kSkinConfigOtherForKey;
+/**
+ * 皮肤更新的回调
+ * bundleID:当前的皮肤资源ID
+ */
+typedef void(^skinUpdateCallback)(NSString *bundleID);
 @interface SLSkinManage : NSObject
 @property (nonatomic, strong,getter=getCurrentConfig,readonly) NSDictionary *currentConfigMap;
 //皮肤管理实例
@@ -37,7 +42,16 @@ extern NSString * const kSkinConfigOtherForKey;
  * bundleID:皮肤资源ID
  */
 - (void)notifyUpdateByBundleID:(NSString *)bundleID;
+#pragma mark --register
+/**注册主题更新callback
+ * 把控制器的指针地址作为key(请谨慎使用，容易覆盖)
+ */
++ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(skinUpdateCallback)skinUpdateCallback;
+/**移除观察者*/
++ (void)removeCallbackWithKey:(NSString *)key;
 @end
+
+
 @interface SLSkinManage (SLSkinSourceManage)
 /**
  * 根据bundleName获取bundle

@@ -9,6 +9,7 @@
 #import "UILabel+HBSkin.h"
 #import "NSObject+HBSkinNotify.h"
 #import "UIView+HBSkin.h"
+#import "SLSkinStyleParse.h"
 #import <objc/runtime.h>
 
 @implementation UILabel (HBSkin)
@@ -25,7 +26,7 @@ static char textColorKey;
     [self setObserver:self];
     if (skin_title_color) {
         self.sl_textColor =skin_title_color;
-        [self updateTitleColorWithAlpha:1];
+        [self updateTitleColor];
     }
 }
 - (NSString *)skin_title_color{
@@ -34,15 +35,12 @@ static char textColorKey;
 - (void)updateStyle{
     [super updateStyle];
     if (self.sl_textColor) {
-        [self updateTitleColorWithAlpha:1];
+        [self updateTitleColor];
     }
 }
 #pragma mark private
-- (void)updateTitleColorWithAlpha:(float)alpha
+- (void)updateTitleColor
 {
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    HBSkinModel * skinModel =[skinManage.skinModelDic objectForKey:skinManage.currentBundleID];
-//    id propertyValue = [skinModel.titleColorDic valueForKey:self.hb_textColor];
-//    self.textColor =[UIColor colorWithHexString:propertyValue alpha:alpha];
+    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textColor];
 }
 @end

@@ -9,6 +9,7 @@
 #import "UITableView+HBSkin.h"
 #import "NSObject+HBSkinNotify.h"
 #import "UIView+HBSkin.h"
+#import "SLSkinStyleParse.h"
 #import <objc/runtime.h>
 @implementation UITableView (HBSkin)
 static char sl_splitLine_colorKey;
@@ -24,7 +25,7 @@ static char sl_splitLine_colorKey;
     [self setObserver:self];
     if (skin_splitLine_color) {
         self.sl_splitLine_color =skin_splitLine_color;
-        [self updateSplitLineColorWithAlpha:1];
+        [self updateSplitLineColor];
     }
 }
 - (NSString *)skin_splitLine_color{
@@ -33,15 +34,11 @@ static char sl_splitLine_colorKey;
 - (void)updateStyle{
     [super updateStyle];
     if (self.sl_splitLine_color) {
-       [self updateSplitLineColorWithAlpha:1];
+       [self updateSplitLineColor];
     }
 }
 #pragma mark private
-- (void)updateSplitLineColorWithAlpha:(float)alpha
-{
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    HBSkinModel * skinModel =[skinManage.skinModelDic objectForKey:skinManage.currentBundleID];
-//    id propertyValue = [skinModel.backGroundColorDic valueForKey:self.hb_splitLine_color];
-//    self.separatorColor =[UIColor colorWithHexString:propertyValue alpha:alpha];
+- (void)updateSplitLineColor{
+    self.separatorColor =[SLSkinStyleParse colorForKey:self.sl_splitLine_color];
 }
 @end

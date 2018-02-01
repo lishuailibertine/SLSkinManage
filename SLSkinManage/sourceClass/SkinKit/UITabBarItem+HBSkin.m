@@ -59,12 +59,8 @@ static char selectedImageNameKey;
 #pragma mark private
 - (void)updateTabBarItemImage
 {
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    self.image =[skinManage.sourceManage getProjectImageWithImageSubpath:self.hb_imageName withimageXcassetsName:HBDefaultImageXcassetsName withBundleName:skinManage.currentBundleID];
 }
 - (void)updateTabBarItemSelectedImage
 {
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    self.selectedImage =[skinManage.sourceManage getProjectImageWithImageSubpath:self.hb_selectedImage withimageXcassetsName:HBDefaultImageXcassetsName withBundleName:skinManage.currentBundleID];
 }
 @end

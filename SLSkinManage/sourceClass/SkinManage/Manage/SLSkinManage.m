@@ -28,6 +28,8 @@ NSString *const HBSkinConfigMapKey = @"HBSkinConfigMapKey";
 NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
 @interface SLSkinManage()
 @property (nonatomic, strong) NSMutableDictionary *sourcesMap;
+/**观察者对象容器*/
+@property (nonatomic, strong) NSMutableDictionary *observerDic;
 @end
 
 @implementation SLSkinManage
@@ -104,6 +106,24 @@ NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
     }
     [self saveCurrentSkinBundleID:bundleID];
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
+    [SLSkinManage notifyObserver];
+}
++ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(skinUpdateCallback)skinUpdateCallback{
+    if (key&&key.length>0&&skinUpdateCallback) {
+        [[SLSkinManage sharedSkinManage].observerDic setObject:skinUpdateCallback forKey:key];
+    }
+}
++ (void)removeCallbackWithKey:(NSString *)key{
+    if(key&&key.length>0){
+        if([[SLSkinManage sharedSkinManage].observerDic objectForKey:key]){
+            [[SLSkinManage sharedSkinManage].observerDic removeObjectForKey:key];
+        }
+    }
+}
++ (void)notifyObserver{
+    for (skinUpdateCallback callback in [[SLSkinManage sharedSkinManage].observerDic allValues]) {
+        callback([[SLSkinManage sharedSkinManage] getCurrentSkinBundleID]);
+    }
 }
 #pragma mark --private
 #pragma mark --ConfigDic

@@ -9,6 +9,8 @@
 #import "UIView+HBSkin.h"
 #import "NSObject+HBSkinNotify.h"
 #import <objc/runtime.h>
+#import "SLSkinStyleParse.h"
+
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
 #pragma mark -private
@@ -23,7 +25,7 @@ static char backgroundColorKey;
     [self setObserver:self];
     if (skin_background_color) {
         self.sl_backgroundColor =skin_background_color;
-        [self updateBackgroundColorWithAlpha:1];
+        [self updateBackgroundColor];
     }
 }
 - (NSString *)skin_background_color{
@@ -31,15 +33,11 @@ static char backgroundColorKey;
 }
 - (void)updateStyle{
     if (self.sl_backgroundColor) {
-        [self updateBackgroundColorWithAlpha:1];
+        [self updateBackgroundColor];
     }
 }
 #pragma mark private
-- (void)updateBackgroundColorWithAlpha:(float)alpha
-{
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    HBSkinModel * skinModel =[skinManage.skinModelDic objectForKey:skinManage.currentBundleID];
-//    id propertyValue = [skinModel.backGroundColorDic valueForKey:self.hb_backgroundColor];
-//    self.backgroundColor =[UIColor colorWithHexString:propertyValue alpha:alpha];
+- (void)updateBackgroundColor{
+    self.backgroundColor =[SLSkinStyleParse colorForKey:self.sl_backgroundColor];
 }
 @end

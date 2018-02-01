@@ -38,9 +38,5 @@ static char tintColorKey;
 }
 - (void)updateTintColor
 {
-//    HBSkinManage *skinManage = [HBSkinManage sharedSkinManage];
-//    HBSkinModel * skinModel =[skinManage.skinModelDic objectForKey:skinManage.currentBundleID];
-//    id propertyValue = [skinModel.barTintColorDic valueForKey:self.hb_tintColor];
-//    self.barTintColor =[UIColor colorWithHexString:propertyValue alpha:1];
 }
 @end
