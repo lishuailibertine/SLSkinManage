@@ -38,7 +38,7 @@ NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
         _skinManage = [[self alloc] init];
         [_skinManage installSkinByBundlePath:([SLSkinManage getBundleWithBundleName:HBDefaultSourcesID]).bundlePath installResult:^(NSError *error) {
             NSAssert(error==nil, @"install default fail:%@",error.userInfo);
-            [_skinManage saveCurrentSkinBundleID:[NSString stringWithFormat:@"%@.bundle",HBDefaultSourcesID]];
+            [_skinManage saveCurrentSkinBundleID:HBDefaultSourcesID];
         }];
     });
     return _skinManage;
@@ -85,7 +85,7 @@ NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
                 }
                 return;
             }else{
-                [this saveConfigWithBundleID:bundlePath.lastPathComponent skinConfig:dataDic];
+                [this saveConfigWithBundleID:[bundlePath.lastPathComponent stringByDeletingPathExtension] skinConfig:dataDic];
                 if (installResult) {
                     installResult(nil);
                 }
@@ -102,7 +102,7 @@ NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
         NSAssert((bundleID||bundleID.length>=0), @"bundleID is error");
         return;
     }
-    [self saveCurrentSkinBundleID:[NSString stringWithFormat:@"%@.bundle",bundleID]];
+    [self saveCurrentSkinBundleID:bundleID];
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
 }
 #pragma mark --private
