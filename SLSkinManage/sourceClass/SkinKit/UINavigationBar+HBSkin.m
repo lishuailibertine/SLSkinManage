@@ -38,7 +38,6 @@ static char barBackgroundImageKey;
 }
 #pragma mark private
 - (void)updateBarBackgroundImage{
-   
-//    [SLSkinStyleParse imageForKey:<#(NSString *)#>]
+    [SLSkinStyleParse imageForKey:self.sl_barBackgroundImage];
 }
 @end
