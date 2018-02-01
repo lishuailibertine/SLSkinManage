@@ -49,6 +49,19 @@
     NSString * imagePath = [SLSkinManage getImagePathWithBundle:[SLSkinManage getBundleWithBundleName:@"SkinStyle_Light"] imageName:@"navBar" imageType:@"png" inDirectory:@"images"];
     NSLog(@"%@",imagePath);
     
+    UIImage * image =[SLSkinStyleParse imageForKey:@"pic1"];
+    NSLog(@"%@",image);
+}
+- (void)testDownZip
+{
+    
+    HBSkinDownloadParams *params =[[HBSkinDownloadParams alloc] init];
+    params.isRemove = YES;
+    [HBSkinDownloadManage downloadSkinSourceByParams:params resultBlock:^(NSError *error) {
+        
+        
+    }];
+    
 }
 @end
 

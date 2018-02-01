@@ -7,23 +7,6 @@
 
 #import "SLSkinManage.h"
 #import "NSObject+HBSkinNotify.h"
-NSString * const kSkinConfigColorForKey =@"colors";
-NSString * const kSkinConfigFontForKey =@"fonts";
-NSString * const kSkinConfigImageForKey =@"images";
-NSString * const kSkinConfigOtherForKey =@"others";
-//*************************private************************************
-//默认的资源包ID
-NSString *const HBDefaultSourcesID =@"SkinStyle_Light";
-//默认的样式配置文件名称
-NSString *const HBDefaultConfigName =@"skin";
-//默认的样式配置文件类型
-NSString *const HBDefaultConfigType =@"json";
-
-//********NSUserDefaults************
-//存储样式配置对应的key
-NSString *const HBSkinConfigMapKey = @"HBSkinConfigMapKey";
-//存储样式配置ID对应的key
-NSString *const HBSkinBundleIDKey = @"HBSkinBundleIDKey";
 @interface SLSkinManage()
 @property (nonatomic, strong) NSMutableDictionary *sourcesMap;
 /**观察者对象容器*/

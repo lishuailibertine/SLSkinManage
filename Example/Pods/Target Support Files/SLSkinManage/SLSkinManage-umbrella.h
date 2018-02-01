@@ -16,15 +16,17 @@
 #import "UIButton+HBSkin.h"
 #import "UIImageView+HBSkin.h"
 #import "UILabel+HBSkin.h"
+#import "UINavigationBar+HBSkin.h"
 #import "UITabBar+HBSkin.h"
 #import "UITabBarItem+HBSkin.h"
 #import "UITableView+HBSkin.h"
 #import "UITableViewCell+HBSkin.h"
 #import "UIView+HBSkin.h"
-#import "HBSkinDownloadManage.h"
-#import "SLSkinManage.h"
-#import "SLSkinStyleParse.h"
+#import "HBSKinConst.h"
 #import "NSError+SkinManage.h"
+#import "SLSkinManage.h"
+#import "HBSkinDownloadManage.h"
+#import "SLSkinStyleParse.h"
 
 FOUNDATION_EXPORT double SLSkinManageVersionNumber;
 FOUNDATION_EXPORT const unsigned char SLSkinManageVersionString[];

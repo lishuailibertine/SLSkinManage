@@ -52,7 +52,8 @@
 + (UIImage *)imageForKey:(NSString *)key{
     UIImage *image;
     if (key) {
-        NSString * imagePath =[[SLSkinManage sharedSkinManage].currentConfigMap[kSkinConfigImageForKey] valueForKey:key];
+        NSString * imageName =[[SLSkinManage sharedSkinManage].currentConfigMap[kSkinConfigImageForKey] valueForKey:key];
+        NSString * imagePath = [SLSkinManage getImagePathWithBundle:[SLSkinManage getBundleWithBundleName:[SLSkinManage sharedSkinManage].currentBundleID] imageName:imageName imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
         image =[UIImage imageWithContentsOfFile:imagePath];
     }
     return image;

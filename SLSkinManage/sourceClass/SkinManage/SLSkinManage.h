@@ -7,21 +7,17 @@
 
 #import <Foundation/Foundation.h>
 #import "NSError+SkinManage.h"
-//皮肤配置文件中颜色map对应的key值(colors:默认)
-extern NSString * const kSkinConfigColorForKey;
-//皮肤配置文件中字体map对应的key值(fonts:默认)
-extern NSString * const kSkinConfigFontForKey;
-//皮肤配置文件中字体map对应的key值(images:默认)
-extern NSString * const kSkinConfigImageForKey;
-//皮肤配置文件中其他样式map对应的key值(others:默认)
-extern NSString * const kSkinConfigOtherForKey;
+#import "HBSKinConst.h"
 /**
  * 皮肤更新的回调
  * bundleID:当前的皮肤资源ID
  */
 typedef void(^skinUpdateCallback)(NSString *bundleID);
 @interface SLSkinManage : NSObject
+//获取当前皮肤在本地存储的配置map
 @property (nonatomic, strong,getter=getCurrentConfig,readonly) NSDictionary *currentConfigMap;
+//获取当前皮肤在本地存储的资源ID
+@property (nonatomic, strong,getter=getCurrentSkinBundleID,readonly) NSString *currentBundleID;
 //皮肤管理实例
 + (instancetype)sharedSkinManage;
 /**

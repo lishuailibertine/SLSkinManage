@@ -7,6 +7,7 @@
 //
 
 #import "SLViewController.h"
+#import <SLSkinManage/SLSkin.h>
 
 @interface SLViewController ()
 
@@ -17,6 +18,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    HBSkinDownloadParams *params =[[HBSkinDownloadParams alloc] init];
+//    params.isRemove = YES;
+//    [HBSkinDownloadManage downloadSkinSourceByParams:params resultBlock:^(NSError *error) {
+//
+//
+//    }];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

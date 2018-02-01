@@ -22,10 +22,11 @@ typedef NS_ENUM(NSInteger, HBSkinDirectoryType) {
 @property (nonatomic, copy) NSString *url;
 //下载到的目标路径(沙盒相对路径)
 @property (nonatomic, copy) NSString *destinationPath;
-//下载完毕是否移除(压缩文件)
-@property (nonatomic, assign) BOOL isRemove;
 //如果不设置默认为Document
 @property (nonatomic, assign) HBSkinDirectoryType directoryType;
+//下载完毕是否移除(压缩文件)
+@property (nonatomic, assign) BOOL isRemove;
+
 - (instancetype)createDownloadParamWithUrl:(NSString *)url destinationPath:(NSString *)destinationPath;
 @end
 
