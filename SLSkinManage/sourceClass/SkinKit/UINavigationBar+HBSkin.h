@@ -9,4 +9,5 @@
 
 @interface UINavigationBar (HBSkin)
 @property (copy,nonatomic) IBInspectable NSString *skin_barBackground_image;
+@property (copy,nonatomic) IBInspectable NSString *skin_barBackground_color;
 @end
