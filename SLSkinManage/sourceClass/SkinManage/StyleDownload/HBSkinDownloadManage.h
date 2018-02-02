@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "NSError+SkinManage.h"
 
-//皮肤的默认地址
-extern NSString * const kSkinDownloadDefaultUrl;
-//下载的皮肤默认保存的地址(沙盒相对路径)
-extern NSString * const kSkinDownloadDefaultDestinationPath;
 typedef NS_ENUM(NSInteger, HBSkinDirectoryType) {
     HBSkinDirectoryType_Document,//
     HBSkinDirectoryType_Library

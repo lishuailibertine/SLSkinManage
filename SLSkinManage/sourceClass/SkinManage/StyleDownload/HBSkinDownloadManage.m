@@ -9,9 +9,7 @@
 #import "HBSkinDownloadManage.h"
 #import "AFNetworking.h"
 #import "ZipArchive.h"
-
-NSString * const kSkinDownloadDefaultUrl =@"http://s1.music.126.net/download/skin/1475210054939_cat.zip";
-NSString * const kSkinDownloadDefaultDestinationPath =@"/HBUserSkins";
+#import "HBSkinConst.h"
 @implementation HBSkinDownloadParams
 - (NSString *)url
 {
@@ -23,7 +21,7 @@ NSString * const kSkinDownloadDefaultDestinationPath =@"/HBUserSkins";
 - (NSString *)destinationPath
 {
     if(!_destinationPath){
-        _destinationPath = kSkinDownloadDefaultDestinationPath;
+        _destinationPath = HBSkinDownloadSubDirectory;
     }
     return _destinationPath;
 }

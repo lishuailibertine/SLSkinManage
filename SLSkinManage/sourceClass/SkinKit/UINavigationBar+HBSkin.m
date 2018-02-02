@@ -38,6 +38,10 @@ static char barBackgroundImageKey;
 }
 #pragma mark private
 - (void)updateBarBackgroundImage{
-    [SLSkinStyleParse imageForKey:self.sl_barBackgroundImage];
+    [self navigationBarColorImage:[SLSkinStyleParse imageForKey:self.sl_barBackgroundImage]];
+}
+-(void)navigationBarColorImage:(UIImage *)image{
+    self.translucent = NO;
+    [self setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
 }
 @end

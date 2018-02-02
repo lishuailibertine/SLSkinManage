@@ -52,9 +52,16 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
 
 @interface SLSkinManage (SLSkinSourceManage)
 /**
- * 根据bundleName获取bundle
+ * 根据bundleName获取bundle(工程路径下)
  */
 + (NSBundle *)getBundleWithBundleName:(NSString *)bundleName;
+/**
+ * 获取bundle(沙盒路径下)
+ * bundleName: 资源包名
+ * directoryType:NSSearchPathDirectory
+ * subPath:据沙盒的相对路径
+ */
++ (NSBundle *)getBundleInSandboxWithBundleName:(NSString *)bundleName directoryType:(NSSearchPathDirectory)directoryType inDirectory:(NSString *)subPath;
 /**
  * 获取文件的路径
  * bundle:图片所属的bundle(可以根据:bundleForClass获取)

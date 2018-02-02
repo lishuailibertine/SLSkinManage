@@ -52,9 +52,21 @@
 + (UIImage *)imageForKey:(NSString *)key{
     UIImage *image;
     if (key) {
-        NSString * imageName =[[SLSkinManage sharedSkinManage].currentConfigMap[kSkinConfigImageForKey] valueForKey:key];
-        NSString * imagePath = [SLSkinManage getImagePathWithBundle:[SLSkinManage getBundleWithBundleName:[SLSkinManage sharedSkinManage].currentBundleID] imageName:imageName imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
-        image =[UIImage imageWithContentsOfFile:imagePath];
+        NSDictionary *configMap_image = [SLSkinManage sharedSkinManage].currentConfigMap[kSkinConfigImageForKey];
+        NSString * currentBundleID = [SLSkinManage sharedSkinManage].currentBundleID;
+        NSString * imageName =[configMap_image valueForKey:key];
+        //先在工程中找bundle
+        NSBundle * sourcesBundle = [SLSkinManage getBundleWithBundleName:currentBundleID];
+        if (sourcesBundle==nil) {
+            sourcesBundle = [SLSkinManage getBundleInSandboxWithBundleName:currentBundleID directoryType:HBSkinDownloadDirectory inDirectory:HBSkinDownloadSubDirectory];
+        }
+        if (sourcesBundle==nil) {
+            NSLog(@"`imageForKey` about bundle not found ");
+            return nil;
+        }else{
+            NSString * imagePath = [SLSkinManage getImagePathWithBundle:sourcesBundle imageName:imageName imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
+            image =[UIImage imageWithContentsOfFile:imagePath];
+        }
     }
     return image;
 }

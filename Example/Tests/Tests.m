@@ -33,6 +33,10 @@
     [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:@"SkinStyle_Night"]).bundlePath configName:nil configType:nil installResult:^(NSError *error) {
         NSLog(@"%@",[SLSkinManage sharedSkinManage].currentConfigMap);
     }];
+    [[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:@"SkinStyle_Other"];
+    NSLog(@"currentBundleID ==%@",[SLSkinManage sharedSkinManage].currentBundleID);
+    UIImage * image =[SLSkinStyleParse imageForKey:@"pic1"];
+    NSLog(@"%@",image);
 }
 - (void)testStyleParse
 {
@@ -46,9 +50,18 @@
 - (void)testGetImage
 {
     //获取工程中某个bundle下的图片路径
-    NSString * imagePath = [SLSkinManage getImagePathWithBundle:[SLSkinManage getBundleWithBundleName:@"SkinStyle_Light"] imageName:@"navBar" imageType:@"png" inDirectory:@"images"];
+    NSString * imagePath = [SLSkinManage getImagePathWithBundle:[SLSkinManage getBundleWithBundleName:@"SkinStyle_Light"] imageName:@"navBar" imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
     NSLog(@"%@",imagePath);
-    
+    UIImage * image =[SLSkinStyleParse imageForKey:@"pic1"];
+    NSLog(@"%@",image);
+}
+
+- (void)testGetBundle
+{
+    NSBundle * bundle =[SLSkinManage getBundleInSandboxWithBundleName:@"SkinStyle_Other" directoryType:HBSkinDownloadDirectory inDirectory:@"/SLTestBundle"];
+    NSLog(@"%@",bundle);
+    NSString * imagePath = [SLSkinManage getImagePathWithBundle:bundle imageName:@"navBar" imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
+    NSLog(@"%@",imagePath);
     UIImage * image =[SLSkinStyleParse imageForKey:@"pic1"];
     NSLog(@"%@",image);
 }

@@ -34,7 +34,7 @@
     return _sourcesMap;
 }
 - (NSDictionary *)getCurrentConfig{
-    return [[SLSkinManage getSourcesConfigForKey:HBSkinConfigMapKey] objectForKey:[self getCurrentSkinBundleID]];
+    return [self getConfigWithBundleID:[self getCurrentSkinBundleID]];
 }
 #pragma mark --public
 - (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(void(^)(NSError *error))installResult{
@@ -85,6 +85,11 @@
         NSAssert((bundleID||bundleID.length>=0), @"bundleID is error");
         return;
     }
+    NSDictionary * configMap =[self getConfigWithBundleID:bundleID];
+    if (configMap==nil) {
+        NSLog(@"%@ is not installed",bundleID);
+        return;
+    }
     [self saveCurrentSkinBundleID:bundleID];
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
     [SLSkinManage notifyObserver];
@@ -101,18 +106,21 @@
         }
     }
 }
+#pragma mark --private
 + (void)notifyObserver{
     for (skinUpdateCallback callback in [[SLSkinManage sharedSkinManage].observerDic allValues]) {
         callback([[SLSkinManage sharedSkinManage] getCurrentSkinBundleID]);
     }
 }
-#pragma mark --private
 #pragma mark --ConfigDic
 - (void)saveConfigWithBundleID:(NSString *)bundleID skinConfig:(NSDictionary *)skinConfig{
     NSDictionary *configMap =[SLSkinManage getSourcesConfigForKey:HBSkinConfigMapKey];
     [self.sourcesMap addEntriesFromDictionary:configMap];
     [self.sourcesMap setValue:skinConfig forKey:bundleID];
     [SLSkinManage saveSourcesConfig:self.sourcesMap forKey:HBSkinConfigMapKey];
+}
+- (NSDictionary *)getConfigWithBundleID:(NSString *)bundleID{
+    return [[SLSkinManage getSourcesConfigForKey:HBSkinConfigMapKey] objectForKey:bundleID];
 }
 #pragma mark --SkinBundleID
 - (void)saveCurrentSkinBundleID:(NSString *)bundleID{
@@ -125,11 +133,22 @@
 
 @implementation SLSkinManage (SLSkinSourceManage)
 + (NSBundle *)getBundleWithBundleName:(NSString *)bundleName {
+    if (bundleName==nil||bundleName.length==0) {
+        NSLog(@"please add bundleName");
+    }
     NSBundle *bundle = [NSBundle mainBundle];
     if (bundleName.length) {
         bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:bundleName withExtension:@"bundle"]];
     }
     return bundle;
+}
++ (NSBundle *)getBundleInSandboxWithBundleName:(NSString *)bundleName directoryType:(NSSearchPathDirectory)directoryType inDirectory:(NSString *)subPath{
+    if (bundleName==nil||bundleName.length==0) {
+        NSLog(@"please add bundleName");
+    }
+    NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:directoryType inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+    NSString *bundlePath = [NSString stringWithFormat:@"%@%@/%@.bundle",documentsDirectoryURL.path,subPath,bundleName];
+    return [NSBundle bundleWithPath:bundlePath];
 }
 + (NSString *)getImagePathWithBundle:(NSBundle *)bundle imageName:(NSString *)imageName imageType:(NSString *)fileType inDirectory:(NSString *)subPath{
     if (bundle==nil) {
