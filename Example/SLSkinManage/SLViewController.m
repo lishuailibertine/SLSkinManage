@@ -18,12 +18,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    HBSkinDownloadParams *params =[[HBSkinDownloadParams alloc] init];
-//    params.isRemove = YES;
-//    [HBSkinDownloadManage downloadSkinSourceByParams:params resultBlock:^(NSError *error) {
-//
-//
-//    }];
+    NSArray * bundles =@[@"SkinStyle_Light",@"SkinStyle_Night"];
+    [bundles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:obj]).bundlePath installResult:^(NSError *error) {
+        }];
+    }];
+    self.view.skin_background_color =@"c1";
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:@"SkinStyle_Night"];
+    });
 	// Do any additional setup after loading the view, typically from a nib.
 }
 

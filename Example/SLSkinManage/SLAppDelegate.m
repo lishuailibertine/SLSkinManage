@@ -7,12 +7,18 @@
 //
 
 #import "SLAppDelegate.h"
-
+#import "SLDefaultNavigationViewController.h"
+#import "SLRootViewController.h"
 @implementation SLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    SLRootViewController * rootController =[SLRootViewController createRootViewController];
+    self.window.rootViewController =  [[SLDefaultNavigationViewController alloc] initWithRootViewController:rootController];
+    self.window.rootViewController.view.backgroundColor = [UIColor whiteColor];
+    [_window makeKeyAndVisible];
     return YES;
 }
 
