@@ -16,7 +16,7 @@
 @implementation SLRootViewController
 + (id)createRootViewController
 {
-    SLRootViewController * rootViewController =[SLRootViewController createFromStoryboardWithStoryboardID:@"HBClearanceListViewController" storyboardName:@"HBClearanceViewController" bundleName:nil];
+    SLRootViewController * rootViewController =[SLRootViewController createFromStoryboardWithStoryboardID:@"SLRootViewController" storyboardName:@"SLRootViewController" bundleName:nil];
     return rootViewController;
 }
 + (instancetype)createFromStoryboardWithStoryboardID:(NSString *)aStoryboardID storyboardName:(NSString *)aStoryboardName  bundleName:(NSString *)aBundleName {
@@ -35,22 +35,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor =[UIColor grayColor];
+    self.skinTableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     // Do any additional setup after loading the view.
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -
+#pragma mark -代理
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell * cell =[tableView dequeueReusableCellWithIdentifier:@"rootViewControllerCell"];
+    cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+    return cell;
 }
-*/
+#pragma mark -行高
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 70;
+}
+#pragma mark -区头
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return 0;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+}
 
 @end

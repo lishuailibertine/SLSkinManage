@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MHJ-sx-O0N">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rootViewControllerCell" id="MHJ-sx-O0N">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MHJ-sx-O0N" id="uZF-mL-LNN">
@@ -41,12 +41,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpT-RY-K2l">
+                                                    <rect key="frame" x="0.0" y="43" width="375" height="0.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="0.5" id="W9d-OU-EvN"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="kpT-RY-K2l" firstAttribute="leading" secondItem="uZF-mL-LNN" secondAttribute="leading" id="Cse-Bd-eBT"/>
                                                 <constraint firstItem="bmT-Lk-B0X" firstAttribute="leading" secondItem="YAV-X1-h74" secondAttribute="trailing" constant="20" id="LT7-EL-pz0"/>
                                                 <constraint firstItem="YAV-X1-h74" firstAttribute="leading" secondItem="uZF-mL-LNN" secondAttribute="leading" constant="15" id="NQd-Uc-osI"/>
                                                 <constraint firstItem="bmT-Lk-B0X" firstAttribute="centerY" secondItem="YAV-X1-h74" secondAttribute="centerY" id="OCT-Tu-nfQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="kpT-RY-K2l" secondAttribute="trailing" id="YlG-9g-csD"/>
                                                 <constraint firstItem="YAV-X1-h74" firstAttribute="centerY" secondItem="uZF-mL-LNN" secondAttribute="centerY" id="eOr-3X-lZH"/>
+                                                <constraint firstAttribute="bottom" secondItem="kpT-RY-K2l" secondAttribute="bottom" id="jtf-Fb-FcL"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
