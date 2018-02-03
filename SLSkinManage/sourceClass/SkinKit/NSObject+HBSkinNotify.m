@@ -38,7 +38,9 @@ static const char *isNSNotification = "isNSNotification";
 }
 #pragma NSNotification
 -(void)skin_addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSNotificationName)aName object:(nullable id)anObject{
-    [observer setIsNSNotification:YES];
+    if (aName==HBNotificationSkinUpdate) {
+       [observer setIsNSNotification:YES];
+    }
     [self skin_addObserver:observer selector:aSelector name:aName object:anObject];
 }
 #pragma mark -- private

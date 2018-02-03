@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImageView (HBSkin)
-
+@property (copy,nonatomic) IBInspectable NSString *skin_image;
 @end

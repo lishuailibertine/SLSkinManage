@@ -15,5 +15,5 @@
 #import "UIView+HBSkin.h"
 #import "UINavigationBar+HBSkin.h"
 #import "UILabel+HBSkin.h"
-
+#import "UIImageView+HBSkin.h"
 #endif /* SLSkin_h */

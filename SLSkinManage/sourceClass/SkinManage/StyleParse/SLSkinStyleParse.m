@@ -65,6 +65,9 @@
             return nil;
         }else{
             NSString * imagePath = [SLSkinManage getImagePathWithBundle:sourcesBundle imageName:imageName imageType:HBImageTypeKey inDirectory:HBImageSubpathKey];
+            if (imagePath==nil) {
+                NSLog(@"`imageForKey` about imagePath not found ");
+            }
             image =[UIImage imageWithContentsOfFile:imagePath];
         }
     }

@@ -7,6 +7,13 @@
 //
 
 #import "SLRootViewController.h"
+#import <SLSkinManage/SLSkin.h>
+
+@interface SLTableViewCell:UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *skinImageView;
+@end
+@implementation SLTableViewCell
+@end
 
 @interface SLRootViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *skinTableView;
@@ -33,10 +40,25 @@
     return bundle;
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]   initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace   target:nil action:nil];
+    negativeSpacer.width = -2;
+    UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    editBtn.frame = CGRectMake(0, 0, 50, 30);
+    [editBtn setTitle:@"换肤" forState:UIControlStateNormal];
+    editBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [editBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *item0 = [[UIBarButtonItem alloc] initWithCustomView:editBtn];
+    self.navigationItem.rightBarButtonItems = @[negativeSpacer,item0];
     self.view.backgroundColor =[UIColor grayColor];
+    self.navigationController.navigationBar.skin_barBackground_image=@"pic1";
     self.skinTableView.separatorStyle =UITableViewCellSeparatorStyleNone;
     // Do any additional setup after loading the view.
+}
+- (void)btnClick:(UIControl*)btn{
+    btn.selected=!btn.selected;
+    NSString * bundleID =btn.selected?@"SkinStyle_Night":@"SkinStyle_Light";
+    [[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:bundleID];
 }
 #pragma mark -
 #pragma mark -代理
@@ -46,7 +68,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell =[tableView dequeueReusableCellWithIdentifier:@"rootViewControllerCell"];
+    SLTableViewCell * cell =[tableView dequeueReusableCellWithIdentifier:@"SLTableViewCell"];
     cell.selectionStyle = UITableViewCellSeparatorStyleNone;
     return cell;
 }

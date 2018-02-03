@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rootViewControllerCell" id="MHJ-sx-O0N">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SLTableViewCell" id="MHJ-sx-O0N" customClass="SLTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MHJ-sx-O0N" id="uZF-mL-LNN">
@@ -34,12 +35,18 @@
                                                         <constraint firstAttribute="width" constant="30" id="Db3-cq-tpv"/>
                                                         <constraint firstAttribute="height" constant="30" id="Ho3-DN-HZr"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="skin_image" value="pic2"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择皮肤安装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmT-Lk-B0X">
                                                     <rect key="frame" x="65" y="10.5" width="121.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="skin_title_color" value="c4"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kpT-RY-K2l">
                                                     <rect key="frame" x="0.0" y="43" width="375" height="0.5"/>
@@ -59,8 +66,17 @@
                                                 <constraint firstAttribute="bottom" secondItem="kpT-RY-K2l" secondAttribute="bottom" id="jtf-Fb-FcL"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="skin_background_color" value="c3"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="skinImageView" destination="YAV-X1-h74" id="YmK-BU-jzR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="skin_background_color" value="c3"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="iuw-7D-koS" id="HlX-Qu-r9t"/>
                                     <outlet property="delegate" destination="iuw-7D-koS" id="2z9-8X-nq4"/>
@@ -74,6 +90,7 @@
                             <constraint firstAttribute="trailing" secondItem="qsJ-Mr-UQR" secondAttribute="trailing" id="t0V-pX-DKY"/>
                             <constraint firstItem="qsJ-Mr-UQR" firstAttribute="leading" secondItem="P9I-e4-ZQS" secondAttribute="leading" id="xt1-H8-nh8"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="A6u-6A-fhC"/>
                     </view>
                     <connections>
                         <outlet property="skinTableView" destination="qsJ-Mr-UQR" id="53s-KD-ULi"/>

@@ -159,7 +159,8 @@
     }
     NSInteger scale = [[UIScreen mainScreen] scale];
     NSString *name = [NSString stringWithFormat:@"%@@%zdx",imageName,scale];
-    return [bundle pathForResource:name ofType:fileType inDirectory:subPath];
+    NSString *imagePath = [bundle pathForResource:name ofType:fileType inDirectory:subPath];
+    return imagePath;
 }
 + (void)saveSourcesConfig:(id)object forKey:(NSString *)key{
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
