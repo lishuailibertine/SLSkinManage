@@ -14,14 +14,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    [[SLSkinManage sharedSkinManage] installSkinByBundlePath:[SLSkinManage getBundleWithBundleName:@"SkinStyle_Night"].bundlePath installResult:nil];
-//    
-//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    self.window.backgroundColor = [UIColor whiteColor];
-//    SLRootViewController * rootController =[SLRootViewController createRootViewController];
-//    self.window.rootViewController =  [[SLDefaultNavigationViewController alloc] initWithRootViewController:rootController];
-//    self.window.rootViewController.view.backgroundColor = [UIColor whiteColor];
-//    [_window makeKeyAndVisible];
+    SLInstallSkinByName(@"SkinStyle_Night", nil);
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    SLRootViewController * rootController =[SLRootViewController createRootViewController];
+    self.window.rootViewController =  [[SLDefaultNavigationViewController alloc] initWithRootViewController:rootController];
+    self.window.rootViewController.view.backgroundColor = [UIColor whiteColor];
+    [_window makeKeyAndVisible];
     return YES;
 }
 

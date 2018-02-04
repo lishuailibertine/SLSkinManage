@@ -58,7 +58,7 @@
 - (void)btnClick:(UIControl*)btn{
     btn.selected=!btn.selected;
     NSString * bundleID =btn.selected?@"SkinStyle_Night":@"SkinStyle_Light";
-    [[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:bundleID];
+    SLSwitchSkinByBundleID(bundleID);
 }
 #pragma mark -
 #pragma mark -代理
