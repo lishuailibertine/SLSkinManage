@@ -13,4 +13,9 @@
 
 >通过源码、pod等方式集成到工程中，添加皮肤资源包(下载等)并通过接口安装，在代码、布局文件中完成样式配置。
 
+### 皮肤资源配置
+![sourceConfig](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/sourceConfig%402x.png)
+
+### 在storyboard中设置样式
+![storyborad](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/stordboard%402x.png)
 ## 接口使用
