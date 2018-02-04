@@ -8,11 +8,41 @@
 #import <Foundation/Foundation.h>
 #import "NSError+SkinManage.h"
 #import "HBSKinConst.h"
-/**
- * 皮肤更新的回调
- * bundleID:当前的皮肤资源ID
+/** 三种安装方式根据具体的业务场景使用
+ * 1,SLInstallSkinByName:安装工程路径下的皮肤资源包
+ * 2,SLInstallSkinInSandboxByName:安装沙盒路径下的皮肤资源包
+ * 3,SLInstallSkinByBundlePath:通过bundle资源路径安装皮肤资源包（工程或者沙盒）
  */
-typedef void(^skinUpdateCallback)(NSString *bundleID);
+#define SLInstallSkinByName(bundleName,result) \
+SLInstallSkinByBundlePath(SLGetBundlePath(bundleName),result);\
+
+#define SLInstallSkinInSandboxByName(bundleName,result) \
+SLInstallSkinByBundlePath(SLGetBundlePathInSandbox(bundleName),result);\
+
+#define SLInstallSkinByBundlePath(bundlePath,result) \
+[[SLSkinManage sharedSkinManage] installSkinByBundlePath:bundlePath installResult:result];\
+
+/** 根据资源包bundle名切换皮肤*/
+#define SLSwitchSkinByBundleID(bundleName) \
+[[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:bundleName];
+
+/** 获取资源包路径接口
+ * 1,SLGetBundlePath:获取工程路径下的皮肤资源包路径
+ * 2,SLGetBundlePathInSandbox:获取工程路径下的皮肤资源包路径
+ */
+#define SLGetBundlePath(bundleName) \
+([SLSkinManage getBundleWithBundleName:bundleName]).bundlePath\
+
+#define SLGetBundlePathInSandbox(bundleName) \
+([SLSkinManage getBundleInSandboxWithBundleName:bundleName directoryType:HBSkinDownloadDirectory inDirectory:HBSkinDownloadSubDirectory]).bundlePath\
+
+
+
+
+//皮肤资源包安装结果回调
+typedef void(^SkinInstallCallback)(NSError *error);
+//皮肤更新的回调, bundleID:当前的皮肤资源ID
+typedef void(^SkinUpdateCallback)(NSString *bundleID);
 @interface SLSkinManage : NSObject
 //获取当前皮肤在本地存储的配置map
 @property (nonatomic, strong,getter=getCurrentConfig,readonly) NSDictionary *currentConfigMap;
@@ -25,7 +55,7 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
  * bundlePath:皮肤资源包的路径
  * installResult:安装皮肤结果handle
  */
-- (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(void(^)(NSError *error))installResult;
+- (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(SkinInstallCallback)installResult;
 /**
  * 根据bundlePath安装皮肤(配置文件存储到本地)
  * bundlePath:皮肤资源包的路径
@@ -33,7 +63,7 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
  * configType:样式配置文件的类型
  * installResult:安装皮肤结果handle
  */
-- (void)installSkinByBundlePath:(NSString *)bundlePath configName:(NSString *)configName configType:(NSString *)configType installResult:(void(^)(NSError *error))installResult;
+- (void)installSkinByBundlePath:(NSString *)bundlePath configName:(NSString *)configName configType:(NSString *)configType installResult:(SkinInstallCallback)installResult;
 /**
  * 安装完，需手动根据bundleID进行皮肤更新
  * 根据皮肤资源ID更新皮肤
@@ -44,7 +74,7 @@ typedef void(^skinUpdateCallback)(NSString *bundleID);
 /**注册主题更新callback
  * 把控制器的指针地址作为key(请谨慎使用，容易覆盖)
  */
-+ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(skinUpdateCallback)skinUpdateCallback;
++ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(SkinUpdateCallback)skinUpdateCallback;
 /**移除观察者*/
 + (void)removeCallbackWithKey:(NSString *)key;
 @end

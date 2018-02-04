@@ -37,13 +37,13 @@
     return [self getConfigWithBundleID:[self getCurrentSkinBundleID]];
 }
 #pragma mark --public
-- (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(void(^)(NSError *error))installResult{
+- (void)installSkinByBundlePath:(NSString *)bundlePath installResult:(SkinInstallCallback)installResult{
     [self installSkinByBundlePath:bundlePath configName:nil configType:nil installResult:installResult];
 }
 - (void)installSkinByBundlePath:(NSString *)bundlePath
                      configName:(NSString *)configName
                      configType:(NSString *)configType
-                  installResult:(void(^)(NSError *error))installResult{
+                  installResult:(SkinInstallCallback)installResult{
     if (bundlePath==nil||bundlePath.length==0) {
         if (installResult) {
             installResult([NSError SkinErrorWithDomain:HBSKINMANAGEERRORDOMAIN code:HBSkinManageError_BundlePathNotFound userInfo:nil]);
@@ -94,7 +94,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
     [SLSkinManage notifyObserver];
 }
-+ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(skinUpdateCallback)skinUpdateCallback{
++ (void)registerCallbackWithKey:(NSString *)key skinUpdateCallback:(SkinUpdateCallback)skinUpdateCallback{
     if (key&&key.length>0&&skinUpdateCallback) {
         [[SLSkinManage sharedSkinManage].observerDic setObject:skinUpdateCallback forKey:key];
     }
@@ -108,7 +108,7 @@
 }
 #pragma mark --private
 + (void)notifyObserver{
-    for (skinUpdateCallback callback in [[SLSkinManage sharedSkinManage].observerDic allValues]) {
+    for (SkinUpdateCallback callback in [[SLSkinManage sharedSkinManage].observerDic allValues]) {
         callback([[SLSkinManage sharedSkinManage] getCurrentSkinBundleID]);
     }
 }

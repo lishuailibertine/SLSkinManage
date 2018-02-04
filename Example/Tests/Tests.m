@@ -30,10 +30,12 @@
 - (void)testExample
 {
     //test 安装接口
-    [[SLSkinManage sharedSkinManage] installSkinByBundlePath:((NSBundle *)[SLSkinManage getBundleWithBundleName:@"SkinStyle_Night"]).bundlePath configName:nil configType:nil installResult:^(NSError *error) {
+    SkinInstallCallback installResult =^(NSError *error){
         NSLog(@"%@",[SLSkinManage sharedSkinManage].currentConfigMap);
-    }];
-    [[SLSkinManage sharedSkinManage] notifyUpdateByBundleID:@"SkinStyle_Other"];
+    };
+    SLInstallSkinByName(@"SkinStyle_Night", installResult);
+    SLSwitchSkinByBundleID(@"SkinStyle_Other");
+    
     NSLog(@"currentBundleID ==%@",[SLSkinManage sharedSkinManage].currentBundleID);
     UIImage * image =[SLSkinStyleParse imageForKey:@"pic1"];
     NSLog(@"%@",image);
