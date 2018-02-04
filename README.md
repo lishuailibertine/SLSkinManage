@@ -15,6 +15,7 @@
 
 ### 皮肤资源配置
 ![sourceConfig](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/sourceConfig%402x.png)
+![JsonConfig](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/JsonConfig%402x.png)
 
 ### 在storyboard中设置样式
 ![storyborad](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/stordboard%402x.png)
