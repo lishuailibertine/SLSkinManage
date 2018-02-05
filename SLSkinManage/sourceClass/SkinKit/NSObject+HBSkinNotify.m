@@ -35,11 +35,6 @@ static const char *isNSNotification = "isNSNotification";
                                                    object:nil];
     }
 }
-- (void)objc_removeAssociatedObjects
-{
-    
-}
-
 #pragma NSNotification
 -(void)skin_addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSNotificationName)aName object:(nullable id)anObject{
     if (aName==HBNotificationSkinUpdate) {

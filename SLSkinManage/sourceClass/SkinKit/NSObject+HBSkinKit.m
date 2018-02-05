@@ -8,10 +8,6 @@
 #import "NSObject+HBSkinKit.h"
 #import "NSObject+HBSkinNotify.h"
 #import "SLSkinStyleParse.h"
-@interface HBStyleFool :NSObject
-@end
-@implementation HBStyleFool
-@end
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
 #pragma mark -private
@@ -308,22 +304,378 @@ static char tabbarSelectedImageNameKey;
 @end
 
 @implementation UITextField (HBSkin)
+static char textFiedTextFontKey,textFieldTextColor;
+
+#pragma mark private
+- (void)setSl_textFont:(NSString *)sl_textFont{
+    objc_setAssociatedObject(self, &textFiedTextFontKey, sl_textFont, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_textFont{
+    return objc_getAssociatedObject(self, &textFiedTextFontKey);
+}
+
+- (void)setSl_textColor:(NSString *)sl_textColor{
+    objc_setAssociatedObject(self, &textFieldTextColor, sl_textColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_textColor{
+    return objc_getAssociatedObject(self, &textFieldTextColor);
+}
+#pragma mark public
+- (void)setSkin_textFont:(NSString *)skin_textFont{
+    [self setObserver:self];
+    if (skin_textFont) {
+        self.sl_textFont =skin_textFont;
+        [self updateTextFieldTextFont];
+    }
+}
+- (NSString *)skin_textFont{
+    return self.sl_textFont;
+}
+- (void)setSkin_textColor:(NSString *)skin_textColor{
+    [self setObserver:self];
+    if (skin_textColor) {
+        self.sl_textColor =skin_textColor;
+        [self updateTextFieldTextColor];
+    }
+}
+- (NSString *)skin_textColor{
+    return self.sl_textColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_textFont) {
+        [self updateTextFieldTextFont];
+    }
+    if (self.sl_textColor) {
+        [self updateTextFieldTextColor];
+    }
+}
+#pragma mark private
+- (void)updateTextFieldTextFont{
+    self.font =[SLSkinStyleParse fontForKey:self.sl_textFont];
+}
+- (void)updateTextFieldTextColor{
+    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textFont];
+}
 @end
 @implementation UITextView (HBSkin)
+
+static char textViewTextFontKey,textViewTextColor;
+#pragma mark private
+- (void)setSl_textFont:(NSString *)sl_textFont{
+    objc_setAssociatedObject(self, &textViewTextFontKey, sl_textFont, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_textFont{
+    return objc_getAssociatedObject(self, &textViewTextFontKey);
+}
+
+- (void)setSl_textColor:(NSString *)sl_textColor{
+    objc_setAssociatedObject(self, &textViewTextColor, sl_textColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_textColor{
+    return objc_getAssociatedObject(self, &textViewTextColor);
+}
+#pragma mark public
+- (void)setSkin_textFont:(NSString *)skin_textFont{
+    [self setObserver:self];
+    if (skin_textFont) {
+        self.sl_textFont =skin_textFont;
+        [self updateTextViewTextFont];
+    }
+}
+- (NSString *)skin_textFont{
+    return self.sl_textFont;
+}
+- (void)setSkin_textColor:(NSString *)skin_textColor{
+    [self setObserver:self];
+    if (skin_textColor) {
+        self.sl_textColor =skin_textColor;
+        [self updateTextViewTextColor];
+    }
+}
+- (NSString *)skin_textColor{
+    return self.sl_textColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_textFont) {
+        [self updateTextViewTextFont];
+    }
+    if (self.sl_textColor) {
+        [self updateTextViewTextColor];
+    }
+}
+#pragma mark private
+- (void)updateTextViewTextFont{
+    self.font =[SLSkinStyleParse fontForKey:self.sl_textFont];
+}
+- (void)updateTextViewTextColor{
+    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textFont];
+}
 @end
 @implementation UISlider (HBSkin)
+static char sliderThumbTintColorKey,sliderMinimumTrackTintColorKey,sliderMaximumTrackTintColorKey;
+#pragma mark private
+- (void)setSl_thumbTintColor:(NSString *)sl_thumbTintColor{
+    objc_setAssociatedObject(self, &sliderThumbTintColorKey, sl_thumbTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_thumbTintColor{
+    return objc_getAssociatedObject(self, &sliderThumbTintColorKey);
+}
+- (void)setSl_minimumTrackTintColor:(NSString *)sl_minimumTrackTintColor{
+    objc_setAssociatedObject(self, &sliderMinimumTrackTintColorKey, sl_minimumTrackTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_minimumTrackTintColor{
+    return objc_getAssociatedObject(self, &sliderMinimumTrackTintColorKey);
+}
+- (void)setSl_maximumTrackTintColor:(NSString *)sl_maximumTrackTintColor{
+    objc_setAssociatedObject(self, &sliderMaximumTrackTintColorKey, sl_maximumTrackTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_maximumTrackTintColor{
+    return objc_getAssociatedObject(self, &sliderMaximumTrackTintColorKey);
+}
+#pragma mark public
+- (void)setSkin_thumbTintColor:(NSString *)skin_thumbTintColor{
+    [self setObserver:self];
+    if (skin_thumbTintColor) {
+        self.sl_thumbTintColor =skin_thumbTintColor;
+        [self updateThumbTintColor];
+    }
+}
+- (NSString *)skin_thumbTintColor{
+    return self.sl_thumbTintColor;
+}
+- (void)setSkin_minimumTrackTintColor:(NSString *)skin_minimumTrackTintColor{
+    [self setObserver:self];
+    if (skin_minimumTrackTintColor) {
+        self.sl_minimumTrackTintColor =skin_minimumTrackTintColor;
+        [self updateThumbTintColor];
+    }
+}
+- (NSString *)skin_minimumTrackTintColor{
+    return self.sl_minimumTrackTintColor;
+}
+- (void)setSkin_maximumTrackTintColor:(NSString *)skin_maximumTrackTintColor{
+    [self setObserver:self];
+    if (skin_maximumTrackTintColor) {
+        self.sl_maximumTrackTintColor =skin_maximumTrackTintColor;
+        [self updateThumbTintColor];
+    }
+}
+- (NSString *)skin_maximumTrackTintColor{
+    return self.sl_maximumTrackTintColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_thumbTintColor) {
+        [self updateThumbTintColor];
+    }
+    if (self.sl_minimumTrackTintColor) {
+        [self updateMinimumTrackTintColor];
+    }
+    if (self.sl_maximumTrackTintColor) {
+        [self updateMaximumTrackTintColor];
+    }
+}
+- (void)updateThumbTintColor{
+    self.thumbTintColor =[SLSkinStyleParse colorForKey:self.sl_thumbTintColor];
+}
+- (void)updateMinimumTrackTintColor{
+    self.minimumTrackTintColor =[SLSkinStyleParse colorForKey:self.sl_minimumTrackTintColor];
+}
+- (void)updateMaximumTrackTintColor{
+    self.maximumTrackTintColor =[SLSkinStyleParse colorForKey:self.sl_maximumTrackTintColor];
+}
 @end
 
 @implementation UISwitch (HBSkin)
+static char switchOnTintColorKey,switchThumbTintColorKey;
+#pragma mark --private
+- (void)setSl_onTintColor:(NSString *)sl_onTintColor{
+    objc_setAssociatedObject(self, &switchOnTintColorKey, sl_onTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_onTintColor{
+    return objc_getAssociatedObject(self, &switchOnTintColorKey);
+}
+- (void)setSl_thumbTintColor:(NSString *)sl_thumbTintColor{
+    objc_setAssociatedObject(self, &switchThumbTintColorKey, sl_thumbTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_thumbTintColor{
+    return objc_getAssociatedObject(self, &switchThumbTintColorKey);
+}
+#pragma mark --public
+- (void)setSkin_onTintColor:(NSString *)skin_onTintColor{
+    [self setObserver:self];
+    if (skin_onTintColor) {
+        self.sl_onTintColor =skin_onTintColor;
+        [self updateOnTintColor];
+    }
+}
+- (NSString *)skin_onTintColor{
+    return self.sl_onTintColor;
+}
+- (void)setSkin_thumbTintColor:(NSString *)skin_thumbTintColor{
+    [self setObserver:self];
+    if (skin_thumbTintColor) {
+        self.sl_thumbTintColor =skin_thumbTintColor;
+        [self updatethumbTintColor];
+    }
+}
+- (NSString *)skin_thumbTintColor{
+    return self.sl_thumbTintColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_onTintColor) {
+        [self updateOnTintColor];
+    }
+    if (self.sl_thumbTintColor) {
+        [self updatethumbTintColor];
+    }
+}
+- (void)updateOnTintColor{
+    self.onTintColor =[SLSkinStyleParse colorForKey:self.sl_onTintColor];
+}
+- (void)updatethumbTintColor{
+    self.thumbTintColor =[SLSkinStyleParse colorForKey:self.sl_thumbTintColor];
+}
 @end
 
 @implementation UIProgressView (HBSkin)
+static char trackTintColorKey,progressTrackTintColorKey;
+#pragma mark --private
+- (void)setSl_trackTintColor:(NSString *)sl_trackTintColor{
+    objc_setAssociatedObject(self, &trackTintColorKey, sl_trackTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_trackTintColor{
+    return objc_getAssociatedObject(self, &trackTintColorKey);
+}
+- (void)setSl_progressTintColor:(NSString *)sl_progressTintColor{
+    objc_setAssociatedObject(self, &progressTrackTintColorKey, sl_progressTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_progressTintColor{
+    return objc_getAssociatedObject(self, &progressTrackTintColorKey);
+}
+#pragma mark --public
+- (void)setSkin_trackTintColor:(NSString *)skin_trackTintColor{
+    [self setObserver:self];
+    if (skin_trackTintColor) {
+        self.sl_trackTintColor =skin_trackTintColor;
+        [self updateTrackTintColor];
+    }
+}
+- (NSString *)skin_trackTintColor{
+    return self.sl_trackTintColor;
+}
+- (void)setSkin_progressTintColor:(NSString *)skin_progressTintColor{
+    [self setObserver:self];
+    if (skin_progressTintColor) {
+        self.sl_progressTintColor =skin_progressTintColor;
+        [self updateProgressTintColor];
+    }
+}
+- (NSString *)skin_progressTintColor{
+    return self.sl_progressTintColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_trackTintColor) {
+        [self updateTrackTintColor];
+    }
+    if (self.sl_progressTintColor) {
+        [self updateProgressTintColor];
+    }
+}
+- (void)updateTrackTintColor{
+    self.trackTintColor =[SLSkinStyleParse colorForKey:self.sl_trackTintColor];
+}
+- (void)updateProgressTintColor{
+    self.progressTintColor =[SLSkinStyleParse colorForKey:self.sl_progressTintColor];
+}
 @end
 
 @implementation UIPageControl (HBSkin)
+static char pageIndicatorTintColorKey,currentPageIndicatorTintColor;
+#pragma mark --private
+- (void)setSl_pageIndicatorTintColor:(NSString *)sl_pageIndicatorTintColor{
+    objc_setAssociatedObject(self, &pageIndicatorTintColorKey, sl_pageIndicatorTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_pageIndicatorTintColor{
+    return objc_getAssociatedObject(self, &pageIndicatorTintColorKey);
+}
+- (void)setSl_currentPageIndicatorTintColor:(NSString *)sl_currentPageIndicatorTintColor{
+    objc_setAssociatedObject(self, &currentPageIndicatorTintColor, sl_currentPageIndicatorTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_currentPageIndicatorTintColor{
+    return objc_getAssociatedObject(self, &currentPageIndicatorTintColor);
+}
+#pragma mark --public
+- (void)setSkin_pageIndicatorTintColor:(NSString *)skin_pageIndicatorTintColor{
+    [self setObserver:self];
+    if (skin_pageIndicatorTintColor) {
+        self.sl_pageIndicatorTintColor =skin_pageIndicatorTintColor;
+        [self updatePageIndicatorTintColor];
+    }
+}
+- (NSString *)skin_pageIndicatorTintColor{
+    return self.sl_pageIndicatorTintColor;
+}
+- (void)setSkin_currentPageIndicatorTintColor:(NSString *)skin_currentPageIndicatorTintColor{
+    [self setObserver:self];
+    if (skin_currentPageIndicatorTintColor) {
+        self.sl_currentPageIndicatorTintColor =skin_currentPageIndicatorTintColor;
+        [self updateCurrentPageIndicatorTintColor];
+    }
+}
+- (NSString *)skin_currentPageIndicatorTintColor{
+    return self.sl_currentPageIndicatorTintColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_pageIndicatorTintColor) {
+        [self updatePageIndicatorTintColor];
+    }
+    if (self.sl_currentPageIndicatorTintColor) {
+        [self updateCurrentPageIndicatorTintColor];
+    }
+}
+- (void)updatePageIndicatorTintColor{
+    self.pageIndicatorTintColor =[SLSkinStyleParse colorForKey:self.sl_pageIndicatorTintColor];
+}
+- (void)updateCurrentPageIndicatorTintColor{
+    self.currentPageIndicatorTintColor =[SLSkinStyleParse colorForKey:self.sl_currentPageIndicatorTintColor];
+}
 @end
 
 @implementation UISearchBar (HBSkin)
+static char searchBarTintColor;
+#pragma mark --private
+- (void)setSl_barTintColor:(NSString *)sl_barTintColor{
+    objc_setAssociatedObject(self, &searchBarTintColor, sl_barTintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)sl_barTintColor{
+    return objc_getAssociatedObject(self, &searchBarTintColor);
+}
+#pragma mark --public
+- (void)setSkin_barTintColor:(NSString *)skin_barTintColor{
+    [self setObserver:self];
+    if (skin_barTintColor) {
+        self.sl_barTintColor =skin_barTintColor;
+        [self updateBarTintColor];
+    }
+}
+- (NSString *)skin_barTintColor{
+    return self.sl_barTintColor;
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.sl_barTintColor) {
+        [self updateBarTintColor];
+    }
+}
+- (void)updateBarTintColor{
+    self.barTintColor =[SLSkinStyleParse colorForKey:self.sl_barTintColor];
+}
 @end
 
 @implementation UIBarButtonItem (HBSkin)

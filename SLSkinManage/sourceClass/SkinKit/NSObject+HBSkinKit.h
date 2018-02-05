@@ -35,12 +35,12 @@
 
 @interface UITextField (HBSkin)
 @property (copy,nonatomic) IBInspectable NSString *skin_textFont;
-@property (copy,nonatomic) IBInspectable NSString *skin_textColort;
+@property (copy,nonatomic) IBInspectable NSString *skin_textColor;
 @end
 
 @interface UITextView (HBSkin)
 @property (copy,nonatomic) IBInspectable NSString *skin_textFont;
-@property (copy,nonatomic) IBInspectable NSString *skin_textColort;
+@property (copy,nonatomic) IBInspectable NSString *skin_textColor;
 @end
 
 @interface UISlider (HBSkin)
