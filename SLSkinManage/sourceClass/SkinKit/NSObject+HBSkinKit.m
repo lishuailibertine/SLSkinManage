@@ -8,7 +8,10 @@
 #import "NSObject+HBSkinKit.h"
 #import "NSObject+HBSkinNotify.h"
 #import "SLSkinStyleParse.h"
-#import <objc/runtime.h>
+@interface HBStyleFool :NSObject
+@end
+@implementation HBStyleFool
+@end
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
 #pragma mark -private
@@ -40,11 +43,88 @@ static char backgroundColorKey;
 }
 @end
 
-
-@implementation UIBarButtonItem (HBSkin)
-@end
-
+static char btnImageStateKey,btnBackgroundImageStateKey,btnTextTitleColorStateKey,buttonImageKey,buttonBackgroundImageKey,btnTextTitleColorKey;
 @implementation UIButton (HBSkin)
+#pragma mark -public
+- (void)setSkin_imageState:(UIControlState)skin_imageState{
+    objc_setAssociatedObject(self, &btnImageStateKey,@(skin_imageState), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UIControlState)skin_imageState{
+    NSNumber * obj = objc_getAssociatedObject(self, &btnImageStateKey);
+    return obj==nil?0:[obj intValue];
+}
+- (void)setSkin_backgroundImageState:(UIControlState)skin_backgroundImageState{
+    objc_setAssociatedObject(self, &btnBackgroundImageStateKey,@(skin_backgroundImageState), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UIControlState)skin_backgroundImageState{
+    NSNumber * obj = objc_getAssociatedObject(self, &btnBackgroundImageStateKey);
+    return obj==nil?0:[obj intValue];
+}
+- (void)setSkin_textTitleColorState:(UIControlState)skin_textTitleColorState{
+    objc_setAssociatedObject(self, &btnTextTitleColorStateKey,@(skin_textTitleColorState), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (UIControlState)skin_textTitleColorState{
+    NSNumber * obj = objc_getAssociatedObject(self, &btnTextTitleColorStateKey);
+    return obj==nil?0:[obj intValue];
+}
+- (void)setSkin_buttonImage:(NSString *)skin_buttonImage{
+    objc_setAssociatedObject(self, &buttonImageKey, skin_buttonImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)skin_buttonImage{
+    return objc_getAssociatedObject(self, &buttonImageKey);
+}
+- (void)setSkin_buttonBackgroundImage:(NSString *)skin_buttonBackgroundImage{
+    objc_setAssociatedObject(self, &buttonBackgroundImageKey, skin_buttonBackgroundImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)skin_buttonBackgroundImage{
+    return objc_getAssociatedObject(self, &buttonBackgroundImageKey);
+}
+- (void)setSkin_textTitleColor:(NSString *)skin_textTitleColor{
+    objc_setAssociatedObject(self, &btnTextTitleColorKey, skin_textTitleColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSString *)skin_textTitleColor{
+    return objc_getAssociatedObject(self, &btnTextTitleColorKey);
+}
+
+- (void)skin_titleColor:(NSString *)type forState:(UIControlState)state{
+    [self setObserver:self];
+    UIColor *textColor =[SLSkinStyleParse colorForKey:type];
+    if (textColor) {
+        self.skin_textTitleColor = type;
+        self.skin_textTitleColorState =state;
+        [self setTitleColor:textColor forState:state];
+    }
+}
+- (void)skin_imageNamed:(NSString *)name forState:(UIControlState)state{
+    [self setObserver:self];
+    UIImage *image =[SLSkinStyleParse imageForKey:name];
+    if (image) {
+        self.skin_buttonImage =name;
+        self.skin_imageState =state;
+        [self setImage:image forState:state];
+    }
+}
+- (void)skin_backgroundImageNamed:(NSString *)name forState:(UIControlState)state{
+    [self setObserver:self];
+    UIImage *backGroundImage =[SLSkinStyleParse imageForKey:name];
+    if (backGroundImage) {
+        self.skin_buttonBackgroundImage =name;
+        self.skin_backgroundImageState =state;
+        [self setBackgroundImage:backGroundImage forState:state];
+    }
+}
+- (void)updateStyle{
+    [super updateStyle];
+    if (self.skin_buttonImage) {
+        [self setImage:[SLSkinStyleParse imageForKey:self.skin_buttonImage] forState:self.skin_imageState];
+    }
+    if (self.skin_buttonBackgroundImage) {
+        [self setBackgroundImage:[SLSkinStyleParse imageForKey:self.skin_buttonBackgroundImage]  forState:self.skin_backgroundImageState];
+    }
+    if (self.skin_textTitleColor) {
+        [self setTitleColor:[SLSkinStyleParse colorForKey:self.skin_textTitleColor] forState:self.skin_textTitleColorState];
+    }
+}
 @end
 
 static char ImageKey;
@@ -102,8 +182,7 @@ static char textColorKey;
     }
 }
 #pragma mark private
-- (void)updateTitleColor
-{
+- (void)updateTitleColor{
     self.textColor =[SLSkinStyleParse colorForKey:self.sl_textColor];
 }
 @end
@@ -168,22 +247,9 @@ static char barBackgroundColorKey;
 }
 -(void)navigationBarColor:(UIColor *)color{
     self.translucent = NO;
-    [self setBackgroundImage:[self imageWithColor:color] forBarMetrics:UIBarMetricsDefault];
-}
-- (UIImage *)imageWithColor:(UIColor *)color
-{
-    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return theImage;
+    [self setBackgroundImage:[UIImage imageWithColor:color] forBarMetrics:UIBarMetricsDefault];
 }
 @end
-
 
 @implementation UITabBarItem (HBSkin)
 static char tabbarImageNameKey;
@@ -233,10 +299,42 @@ static char tabbarSelectedImageNameKey;
     }
 }
 #pragma mark private
-- (void)updateTabBarItemImage
-{
+- (void)updateTabBarItemImage{
+    self.image =[SLSkinStyleParse imageForKey:self.sl_imageName];
 }
-- (void)updateTabBarItemSelectedImage
-{
+- (void)updateTabBarItemSelectedImage{
+    self.selectedImage =[SLSkinStyleParse imageForKey:self.sl_selectedImage];
 }
 @end
+
+@implementation UITextField (HBSkin)
+@end
+@implementation UITextView (HBSkin)
+@end
+@implementation UISlider (HBSkin)
+@end
+
+@implementation UISwitch (HBSkin)
+@end
+
+@implementation UIProgressView (HBSkin)
+@end
+
+@implementation UIPageControl (HBSkin)
+@end
+
+@implementation UISearchBar (HBSkin)
+@end
+
+@implementation UIBarButtonItem (HBSkin)
+@end
+
+
+
+
+
+
+
+
+
+

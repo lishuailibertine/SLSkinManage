@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 //皮肤更新通知
 extern NSString * const HBNotificationSkinUpdate;
 @interface NSObject (HBSkinNotify)

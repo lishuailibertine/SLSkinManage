@@ -23,3 +23,7 @@
 
 + (id)otherForType:(NSString *)type;
 @end
+
+@interface UIImage (SLSkin)
++ (UIImage *)imageWithColor:(UIColor *)color;
+@end

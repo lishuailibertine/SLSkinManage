@@ -7,7 +7,6 @@
 //
 
 #import "NSObject+HBSkinNotify.h"
-#import <objc/runtime.h>
 NSString *const HBNotificationSkinUpdate =@"skinUpdate";
 static const char *isNSNotification = "isNSNotification";
 @implementation NSObject (HBSkinNotify)
@@ -36,6 +35,11 @@ static const char *isNSNotification = "isNSNotification";
                                                    object:nil];
     }
 }
+- (void)objc_removeAssociatedObjects
+{
+    
+}
+
 #pragma NSNotification
 -(void)skin_addObserver:(id)observer selector:(SEL)aSelector name:(nullable NSNotificationName)aName object:(nullable id)anObject{
     if (aName==HBNotificationSkinUpdate) {
