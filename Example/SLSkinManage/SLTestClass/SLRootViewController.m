@@ -8,6 +8,7 @@
 
 #import "SLRootViewController.h"
 #import <SLSkinManage/SLSkin.h>
+#import "SLNextViewController.h"
 
 @interface SLTableViewCell:UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *skinImageView;
@@ -87,7 +88,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    SLNextViewController * nextController =[SLNextViewController createNextViewController];
+    [self.navigationController pushViewController:nextController animated:YES];
 }
 
 @end

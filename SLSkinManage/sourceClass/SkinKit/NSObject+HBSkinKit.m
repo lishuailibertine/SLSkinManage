@@ -355,7 +355,7 @@ static char textFiedTextFontKey,textFieldTextColor;
     self.font =[SLSkinStyleParse fontForKey:self.sl_textFont];
 }
 - (void)updateTextFieldTextColor{
-    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textFont];
+    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textColor];
 }
 @end
 @implementation UITextView (HBSkin)
@@ -410,7 +410,7 @@ static char textViewTextFontKey,textViewTextColor;
     self.font =[SLSkinStyleParse fontForKey:self.sl_textFont];
 }
 - (void)updateTextViewTextColor{
-    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textFont];
+    self.textColor =[SLSkinStyleParse colorForKey:self.sl_textColor];
 }
 @end
 @implementation UISlider (HBSkin)
