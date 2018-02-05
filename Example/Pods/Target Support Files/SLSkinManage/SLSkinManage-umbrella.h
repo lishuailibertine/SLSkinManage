@@ -11,17 +11,8 @@
 #endif
 
 #import "SLSkin.h"
+#import "NSObject+HBSkinKit.h"
 #import "NSObject+HBSkinNotify.h"
-#import "UIBarButtonItem+HBSkin.h"
-#import "UIButton+HBSkin.h"
-#import "UIImageView+HBSkin.h"
-#import "UILabel+HBSkin.h"
-#import "UINavigationBar+HBSkin.h"
-#import "UITabBar+HBSkin.h"
-#import "UITabBarItem+HBSkin.h"
-#import "UITableView+HBSkin.h"
-#import "UITableViewCell+HBSkin.h"
-#import "UIView+HBSkin.h"
 #import "HBSKinConst.h"
 #import "NSError+SkinManage.h"
 #import "SLSkinManage.h"

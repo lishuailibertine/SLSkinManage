@@ -12,8 +12,5 @@
 #import "HBSkinDownloadManage.h"
 #import "SLSkinStyleParse.h"
 #import "NSError+SkinManage.h"
-#import "UIView+HBSkin.h"
-#import "UINavigationBar+HBSkin.h"
-#import "UILabel+HBSkin.h"
-#import "UIImageView+HBSkin.h"
+#import "NSObject+HBSkinKit.h"
 #endif /* SLSkin_h */
