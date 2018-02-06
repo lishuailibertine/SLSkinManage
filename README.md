@@ -46,70 +46,32 @@ SLInstallSkinByBundlePath(SLGetBundlePathInSandbox(bundleName),result);\
 #define SLGetBundlePathInSandbox(bundleName) \
 ([SLSkinManage getBundleInSandboxWithBundleName:bundleName directoryType:HBSkinDownloadDirectory inDirectory:HBSkinDownloadSubDirectory]).bundlePath\
 ```
-## 样式设置
-```objective-c
-@interface UIView (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_background_color;
-@end
-@interface UIButton (HBSkin)
-- (void)skin_titleColor:(NSString *)type forState:(UIControlState)state;
-- (void)skin_imageNamed:(NSString *)name forState:(UIControlState)state;
-- (void)skin_backgroundImageNamed:(NSString *)name forState:(UIControlState)state;
-@end
-
-@interface UIImageView (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_image;
-@end
-
-@interface UILabel (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_title_color;
-@end
-
-@interface UINavigationBar (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_barBackground_image;
-@property (copy,nonatomic) IBInspectable NSString *skin_barBackground_color;
-@end
-
-@interface UITabBarItem (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_image_name;
-@property (copy,nonatomic) IBInspectable NSString *skin_selectedImage_name;
-@end
-
-@interface UITextField (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_textFont;
-@property (copy,nonatomic) IBInspectable NSString *skin_textColor;
-@end
-
-@interface UITextView (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_textFont;
-@property (copy,nonatomic) IBInspectable NSString *skin_textColor;
-@end
-
-@interface UISlider (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_thumbTintColor;
-@property (copy,nonatomic) IBInspectable NSString *skin_minimumTrackTintColor;
-@property (copy,nonatomic) IBInspectable NSString *skin_maximumTrackTintColor;
-@end
-
-@interface UISwitch (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_onTintColor;
-@property (copy,nonatomic) IBInspectable NSString *skin_thumbTintColor;
-@end
-
-@interface UIProgressView (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_trackTintColor;
-@property (copy,nonatomic) IBInspectable NSString *skin_progressTintColor;
-@end
-
-@interface UIPageControl (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_pageIndicatorTintColor;
-@property (copy,nonatomic) IBInspectable NSString *skin_currentPageIndicatorTintColor;
-@end
-
-@interface UISearchBar (HBSkin)
-@property (copy,nonatomic) IBInspectable NSString *skin_barTintColor;
-@end
-
-@interface UIBarButtonItem (HBSkin)
-@end
-```
+## 元素样式设置
+### 目前支持以下元素
+|名称|属性及方法|注释|
+|:---|:---|:---|
+|UIView|skin_background_color|设置view的背景色|
+|UIButton|skin_titleColor:forState:|设置按钮某个状态的title颜色|
+||skin_imageNamed:forState:|设置按钮某个状态的image(根据配置表中的key)|
+||skin_backgroundImageNamed:forState:|设置按钮某个状态的backgroundImag(根据配置表中的key)|
+|UIImageView|skin_image|设置image(根据配置表中的key)|
+|UILabel|skin_title_color|设置label的title颜色(根据配置表中的key)|
+|UINavigationBar|skin_barBackground_image|用图片设置导航的背景色(根据配置表中的key)|
+||skin_barBackground_color|用颜色设置导航的背景色(根据配置表中的key)|
+|UITabBarItem|skin_image_name|用图片名设置tabbarIterm的image属性(根据配置表中的key)|
+||skin_selectedImage_name|用图片名设置tabbarIterm的selectedImage属性(根据配置表中的key)|
+|UITextField|skin_textFont|设置TextField的font大小(根据配置表中的key)|
+||skin_textColor|设置TextField的textColor(根据配置表中的key)|
+|UITextView|skin_textFont|设置UITextView的font大小(根据配置表中的key)|
+||skin_textColor|设置UITextView的textColor(根据配置表中的key)|
+|UISlider|skin_thumbTintColor|设置Slider的thumbTintColor属性(根据配置表中的key)|
+||skin_minimumTrackTintColor|设置Slider的minimumTrackTintColor属性(根据配置表中的key)|
+||skin_maximumTrackTintColor|设置Slider的maximumTrackTintColor属性(根据配置表中的key)|
+|UISwitch|skin_onTintColor|设置Switch的onTintColor属性(根据配置表中的key)|
+||skin_thumbTintColor|设置Switch的thumbTintColor属性(根据配置表中的key)|
+|UIProgressView|skin_trackTintColor|设置ProgressView的trackTintColor属性(根据配置表中的key)|
+||skin_progressTintColor|设置ProgressView的progressTintColor属性(根据配置表中的key)|
+|UIPageControl|skin_pageIndicatorTintColor|设置PageControl的pageIndicatorTintColor属性(根据配置表中的key)|
+||skin_currentPageIndicatorTintColor|设置PageControl的currentPageIndicatorTintColor属性(根据配置表中的key)|
+|UISearchBar|skin_barTintColor|设置SearchBar的barTintColor属性(根据配置表中的key)|
+|UIBarButtonItem|--|--|
