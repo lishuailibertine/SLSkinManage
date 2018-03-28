@@ -7,14 +7,23 @@
 //
 
 #import "NSObject+HBSkinNotify.h"
+//返回列表是因为有些主题元素不是继承`UIView`的
+static NSArray * themeObserverWhiteLists(){
+    return @[[UIView class]];
+}
 NSString *const HBNotificationSkinUpdate =@"skinUpdate";
 static const char *isNSNotification = "isNSNotification";
 @implementation NSObject (HBSkinNotify)
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [NSObject swizzlingInstance:objc_getClass("NSNotificationCenter") orginalMethod:NSSelectorFromString(@"addObserver:selector:name:object:") replaceMethod:NSSelectorFromString(@"skin_addObserver:selector:name:object:")];
-        [NSObject swizzlingInstance:self orginalMethod:NSSelectorFromString(@"dealloc") replaceMethod:NSSelectorFromString(@"skin_dealloc")];
+        for (Class observerClass in themeObserverWhiteLists()) {
+            if ([[self class] isKindOfClass:observerClass]) {
+                [NSObject swizzlingInstance:objc_getClass("NSNotificationCenter") orginalMethod:NSSelectorFromString(@"addObserver:selector:name:object:") replaceMethod:NSSelectorFromString(@"theme_addObserver:selector:name:object:")];
+                [NSObject swizzlingInstance:self orginalMethod:NSSelectorFromString(@"dealloc") replaceMethod:NSSelectorFromString(@"theme_dealloc")];
+                return ;
+            }
+        }
     });
 }
 #pragma mark -setter getter
