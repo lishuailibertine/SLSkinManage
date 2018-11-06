@@ -8,8 +8,17 @@
 #import "NSObject+HBSkinKit.h"
 #import "NSObject+HBSkinNotify.h"
 #import "SLSkinStyleParse.h"
+#import "SLSkinManage.h"
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
+typedef void(^UpdateTheme)(void);
+static void executeTask(UpdateTheme updateTheme){
+    dispatch_group_async([SLSkinManage sharedSkinManage].themeGroup, dispatch_get_main_queue(), ^{
+        if (updateTheme) {
+            updateTheme();
+        }
+    });
+}
 #pragma mark -private
 - (void)setSl_backgroundColor:(NSString *)sl_backgroundColor{
     objc_setAssociatedObject(self, &backgroundColorKey, sl_backgroundColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -29,9 +38,11 @@ static char backgroundColorKey;
     return self.sl_backgroundColor;
 }
 - (void)updateStyle{
-    if (self.sl_backgroundColor) {
-        [self updateBackgroundColor];
-    }
+    executeTask(^{
+        if (self.sl_backgroundColor) {
+            [self updateBackgroundColor];
+        }
+    });
 }
 #pragma mark private
 - (void)updateBackgroundColor{
@@ -110,16 +121,18 @@ static char btnImageStateKey,btnBackgroundImageStateKey,btnTextTitleColorStateKe
     }
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.skin_buttonImage) {
-        [self setImage:[SLSkinStyleParse imageForKey:self.skin_buttonImage] forState:self.skin_imageState];
-    }
-    if (self.skin_buttonBackgroundImage) {
-        [self setBackgroundImage:[SLSkinStyleParse imageForKey:self.skin_buttonBackgroundImage]  forState:self.skin_backgroundImageState];
-    }
-    if (self.skin_textTitleColor) {
-        [self setTitleColor:[SLSkinStyleParse colorForKey:self.skin_textTitleColor] forState:self.skin_textTitleColorState];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.skin_buttonImage) {
+            [self setImage:[SLSkinStyleParse imageForKey:self.skin_buttonImage] forState:self.skin_imageState];
+        }
+        if (self.skin_buttonBackgroundImage) {
+            [self setBackgroundImage:[SLSkinStyleParse imageForKey:self.skin_buttonBackgroundImage]  forState:self.skin_backgroundImageState];
+        }
+        if (self.skin_textTitleColor) {
+            [self setTitleColor:[SLSkinStyleParse colorForKey:self.skin_textTitleColor] forState:self.skin_textTitleColorState];
+        }
+    });
 }
 @end
 
@@ -144,10 +157,12 @@ static char ImageKey;
     return self.sl_Image;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.skin_image) {
-        self.image =[SLSkinStyleParse imageForKey:self.skin_image];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.skin_image) {
+            self.image =[SLSkinStyleParse imageForKey:self.skin_image];
+        }
+    });
 }
 @end
 
@@ -172,10 +187,12 @@ static char textColorKey;
     return self.sl_textColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_textColor) {
-        [self updateTitleColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_textColor) {
+            [self updateTitleColor];
+        }
+    });
 }
 #pragma mark private
 - (void)updateTitleColor{
@@ -222,13 +239,15 @@ static char barBackgroundColorKey;
     return self.sl_barBackgroundColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_barBackgroundImage) {
-        [self updateBarBackgroundImage];
-    }
-    if (self.sl_barBackgroundColor) {
-        [self updateBarBackgroundColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_barBackgroundImage) {
+            [self updateBarBackgroundImage];
+        }
+        if (self.sl_barBackgroundColor) {
+            [self updateBarBackgroundColor];
+        }
+    });
 }
 #pragma mark private
 - (void)updateBarBackgroundImage{
@@ -287,12 +306,14 @@ static char tabbarSelectedImageNameKey;
     return self.sl_selectedImage;
 }
 - (void)updateStyle{
-    if (self.sl_imageName) {
-        [self updateTabBarItemImage];
-    }
-    if (self.sl_selectedImage) {
-        [self updateTabBarItemSelectedImage];
-    }
+    executeTask(^{
+        if (self.sl_imageName) {
+            [self updateTabBarItemImage];
+        }
+        if (self.sl_selectedImage) {
+            [self updateTabBarItemSelectedImage];
+        }
+    });
 }
 #pragma mark private
 - (void)updateTabBarItemImage{
@@ -342,13 +363,15 @@ static char textFiedTextFontKey,textFieldTextColor;
     return self.sl_textColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_textFont) {
-        [self updateTextFieldTextFont];
-    }
-    if (self.sl_textColor) {
-        [self updateTextFieldTextColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_textFont) {
+            [self updateTextFieldTextFont];
+        }
+        if (self.sl_textColor) {
+            [self updateTextFieldTextColor];
+        }
+    });
 }
 #pragma mark private
 - (void)updateTextFieldTextFont{
@@ -397,13 +420,15 @@ static char textViewTextFontKey,textViewTextColor;
     return self.sl_textColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_textFont) {
-        [self updateTextViewTextFont];
-    }
-    if (self.sl_textColor) {
-        [self updateTextViewTextColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_textFont) {
+            [self updateTextViewTextFont];
+        }
+        if (self.sl_textColor) {
+            [self updateTextViewTextColor];
+        }
+    });
 }
 #pragma mark private
 - (void)updateTextViewTextFont{
@@ -466,16 +491,18 @@ static char sliderThumbTintColorKey,sliderMinimumTrackTintColorKey,sliderMaximum
     return self.sl_maximumTrackTintColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_thumbTintColor) {
-        [self updateThumbTintColor];
-    }
-    if (self.sl_minimumTrackTintColor) {
-        [self updateMinimumTrackTintColor];
-    }
-    if (self.sl_maximumTrackTintColor) {
-        [self updateMaximumTrackTintColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_thumbTintColor) {
+            [self updateThumbTintColor];
+        }
+        if (self.sl_minimumTrackTintColor) {
+            [self updateMinimumTrackTintColor];
+        }
+        if (self.sl_maximumTrackTintColor) {
+            [self updateMaximumTrackTintColor];
+        }
+    });
 }
 - (void)updateThumbTintColor{
     self.thumbTintColor =[SLSkinStyleParse colorForKey:self.sl_thumbTintColor];
@@ -525,13 +552,15 @@ static char switchOnTintColorKey,switchThumbTintColorKey;
     return self.sl_thumbTintColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_onTintColor) {
-        [self updateOnTintColor];
-    }
-    if (self.sl_thumbTintColor) {
-        [self updatethumbTintColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_onTintColor) {
+            [self updateOnTintColor];
+        }
+        if (self.sl_thumbTintColor) {
+            [self updatethumbTintColor];
+        }
+    });
 }
 - (void)updateOnTintColor{
     self.onTintColor =[SLSkinStyleParse colorForKey:self.sl_onTintColor];
@@ -578,13 +607,15 @@ static char trackTintColorKey,progressTrackTintColorKey;
     return self.sl_progressTintColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_trackTintColor) {
-        [self updateTrackTintColor];
-    }
-    if (self.sl_progressTintColor) {
-        [self updateProgressTintColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_trackTintColor) {
+            [self updateTrackTintColor];
+        }
+        if (self.sl_progressTintColor) {
+            [self updateProgressTintColor];
+        }
+    });
 }
 - (void)updateTrackTintColor{
     self.trackTintColor =[SLSkinStyleParse colorForKey:self.sl_trackTintColor];
@@ -631,13 +662,15 @@ static char pageIndicatorTintColorKey,currentPageIndicatorTintColor;
     return self.sl_currentPageIndicatorTintColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_pageIndicatorTintColor) {
-        [self updatePageIndicatorTintColor];
-    }
-    if (self.sl_currentPageIndicatorTintColor) {
-        [self updateCurrentPageIndicatorTintColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_pageIndicatorTintColor) {
+            [self updatePageIndicatorTintColor];
+        }
+        if (self.sl_currentPageIndicatorTintColor) {
+            [self updateCurrentPageIndicatorTintColor];
+        }
+    });
 }
 - (void)updatePageIndicatorTintColor{
     self.pageIndicatorTintColor =[SLSkinStyleParse colorForKey:self.sl_pageIndicatorTintColor];
@@ -668,10 +701,12 @@ static char searchBarTintColor;
     return self.sl_barTintColor;
 }
 - (void)updateStyle{
-    [super updateStyle];
-    if (self.sl_barTintColor) {
-        [self updateBarTintColor];
-    }
+    executeTask(^{
+        [super updateStyle];
+        if (self.sl_barTintColor) {
+            [self updateBarTintColor];
+        }
+    });
 }
 - (void)updateBarTintColor{
     self.barTintColor =[SLSkinStyleParse colorForKey:self.sl_barTintColor];

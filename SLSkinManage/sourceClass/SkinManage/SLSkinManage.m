@@ -14,6 +14,12 @@
 @end
 
 @implementation SLSkinManage
+- (dispatch_group_t)themeGroup{
+    if (!_themeGroup) {
+        _themeGroup =dispatch_group_create();
+    }
+    return _themeGroup;
+}
 + (instancetype)sharedSkinManage{
     static id _skinManage;
     static dispatch_once_t onceToken;
@@ -91,6 +97,9 @@
         return;
     }
     [self saveCurrentSkinBundleID:bundleID];
+    dispatch_group_notify(self.themeGroup, dispatch_get_main_queue(), ^{
+
+    });
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
     [SLSkinManage notifyObserver];
 }
@@ -109,7 +118,9 @@
 #pragma mark --private
 + (void)notifyObserver{
     for (SkinUpdateCallback callback in [[SLSkinManage sharedSkinManage].observerDic allValues]) {
-        callback([[SLSkinManage sharedSkinManage] getCurrentSkinBundleID]);
+        dispatch_group_async([SLSkinManage sharedSkinManage].themeGroup, dispatch_get_main_queue(), ^{
+            callback([[SLSkinManage sharedSkinManage] getCurrentSkinBundleID]);
+        });
     }
 }
 #pragma mark --ConfigDic

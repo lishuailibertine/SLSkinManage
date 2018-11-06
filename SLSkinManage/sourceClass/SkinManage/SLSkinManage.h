@@ -36,18 +36,18 @@ SLInstallSkinByBundlePath(SLGetBundlePathInSandbox(bundleName),result);\
 #define SLGetBundlePathInSandbox(bundleName) \
 ([SLSkinManage getBundleInSandboxWithBundleName:bundleName directoryType:HBSkinDownloadDirectory inDirectory:HBSkinDownloadSubDirectory]).bundlePath\
 
-
-
-
 //皮肤资源包安装结果回调
 typedef void(^SkinInstallCallback)(NSError *error);
 //皮肤更新的回调, bundleID:当前的皮肤资源ID
 typedef void(^SkinUpdateCallback)(NSString *bundleID);
 @interface SLSkinManage : NSObject
+/**主题更新UI队列*/
+@property (nonatomic) dispatch_group_t themeGroup;
 //获取当前皮肤在本地存储的配置map
 @property (nonatomic, strong,getter=getCurrentConfig,readonly) NSDictionary *currentConfigMap;
 //获取当前皮肤在本地存储的资源ID
 @property (nonatomic, strong,getter=getCurrentSkinBundleID,readonly) NSString *currentBundleID;
+
 //皮肤管理实例
 + (instancetype)sharedSkinManage;
 /**
