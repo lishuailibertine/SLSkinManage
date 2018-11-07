@@ -11,13 +11,13 @@
 #endif
 
 #import "HBSKinConst.h"
+#import "HBSkinDownloadManage.h"
 #import "NSError+SkinManage.h"
-#import "SLSkin.h"
 #import "NSObject+HBSkinKit.h"
 #import "NSObject+HBSkinNotify.h"
+#import "SLSkin.h"
 #import "SLSkinManage.h"
 #import "SLSkinStyleParse.h"
-#import "HBSkinDownloadManage.h"
 
 FOUNDATION_EXPORT double SLSkinManageVersionNumber;
 FOUNDATION_EXPORT const unsigned char SLSkinManageVersionString[];

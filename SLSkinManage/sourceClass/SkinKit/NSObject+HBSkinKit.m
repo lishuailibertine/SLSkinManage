@@ -9,6 +9,12 @@
 #import "NSObject+HBSkinNotify.h"
 #import "SLSkinStyleParse.h"
 #import "SLSkinManage.h"
+
+@interface SLSkinManage()
+/**主题更新UI队列*/
+@property (nonatomic) dispatch_group_t themeGroup;
+@end
+
 @implementation UIView (HBSkin)
 static char backgroundColorKey;
 typedef void(^UpdateTheme)(void);

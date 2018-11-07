@@ -7,7 +7,14 @@
 
 #import "SLSkinManage.h"
 #import "NSObject+HBSkinNotify.h"
+//皮肤开始更新通知
+NSString * const HBNotificationSkinStartUpdate =@"HBNotificationSkinStartUpdate";
+//皮肤结束更新通知
+NSString * const HBNotificationSkinEndUpdate =@"HBNotificationSkinEndUpdate";
 @interface SLSkinManage()
+/**主题更新UI队列*/
+@property (nonatomic) dispatch_group_t themeGroup;
+
 @property (nonatomic, strong) NSMutableDictionary *sourcesMap;
 /**观察者对象容器*/
 @property (nonatomic, strong) NSMutableDictionary *observerDic;
@@ -98,8 +105,9 @@
     }
     [self saveCurrentSkinBundleID:bundleID];
     dispatch_group_notify(self.themeGroup, dispatch_get_main_queue(), ^{
-
+        [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinEndUpdate object:nil];
     });
+    [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinStartUpdate object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:HBNotificationSkinUpdate object:nil];
     [SLSkinManage notifyObserver];
 }

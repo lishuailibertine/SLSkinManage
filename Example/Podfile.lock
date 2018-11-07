@@ -24,9 +24,14 @@ DEPENDENCIES:
   - SLSkinManage (from `../`)
   - ZipArchive
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - ZipArchive
+
 EXTERNAL SOURCES:
   SLSkinManage:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -35,4 +40,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b9b5dd0815006eae9337a18789aa9fac6385f95e
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
