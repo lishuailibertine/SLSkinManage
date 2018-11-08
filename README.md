@@ -1,4 +1,8 @@
 # SLSkinManage
+
+## 项目中的实际应用
+![效果展示](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/Demo)
+
 ## 简单介绍
 
 >闲余时间写的一个换肤的小工具。目前的demo还比较简陋,还在持续更新。这个功能的设计仅仅根据自己的想法去实现的，看到的朋友可以借鉴一下，也许就更好的实现方式😊。
