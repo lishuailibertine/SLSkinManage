@@ -1,7 +1,7 @@
 # SLSkinManage
 
 ## 项目中的实际应用
-![效果展示](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/Demo)
+![效果展示](https://github.com/lishuailibertine/SLSkinManage/blob/master/images/Demo.gif)
 
 ## 简单介绍
 
